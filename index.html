@@ -16,9 +16,8 @@
         
         body {
             min-height: 100vh;
-            /* 深海蓝青渐变：黑 → 深蓝青 → 黑 */
-            background: radial-gradient(ellipse at 50% 0%, #0a2a2e 0%, #0a1215 50%, #000000 100%);
-            color: #d4e8ed;
+            background: radial-gradient(ellipse at 50% 0%, #0d1a1c 0%, #080e0f 50%, #000000 100%);
+            color: #9bb5ba;
             line-height: 1.7;
             padding: 20px;
             max-width: 800px;
@@ -27,7 +26,6 @@
             position: relative;
         }
         
-        /* 蓝青色光晕 */
         body::before {
             content: '';
             position: fixed;
@@ -35,8 +33,8 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(ellipse at 70% 20%, rgba(0, 200, 220, 0.06) 0%, transparent 50%),
-                        radial-gradient(ellipse at 30% 80%, rgba(0, 150, 200, 0.04) 0%, transparent 50%);
+            background: radial-gradient(ellipse at 70% 20%, rgba(60, 130, 140, 0.04) 0%, transparent 50%),
+                        radial-gradient(ellipse at 30% 80%, rgba(50, 110, 130, 0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -50,11 +48,9 @@
             text-align: center;
             margin-bottom: 35px;
             padding-bottom: 25px;
-            border-bottom: 1px solid rgba(0, 200, 220, 0.08);
-            position: relative;
+            border-bottom: 1px solid rgba(80, 140, 150, 0.06);
         }
         
-        /* 头像发光圈改为蓝青色 */
         .avatar-wrapper {
             position: relative;
             display: inline-block;
@@ -66,12 +62,12 @@
             position: absolute;
             inset: -4px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #22d3ee, #06b6d4, #0891b2, #22d3ee);
+            background: linear-gradient(135deg, #3a7a82, #2a5a62, #3a7a82);
             background-size: 300% 300%;
-            animation: glowSpin 4s ease-in-out infinite;
+            animation: glowSpin 6s ease-in-out infinite;
             z-index: -1;
-            filter: blur(10px);
-            opacity: 0.5;
+            filter: blur(12px);
+            opacity: 0.25;
         }
         
         @keyframes glowSpin {
@@ -84,23 +80,22 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(34, 211, 238, 0.3);
+            border: 1px solid rgba(60, 130, 140, 0.15);
             display: block;
             margin: 0 auto;
             position: relative;
-            background: #0a1a1a;
+            background: #0a1214;
         }
         
-        /* 名字：蓝青渐变 */
         .name {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 5px;
-            background: linear-gradient(135deg, #67e8f9, #22d3ee, #06b6d4, #22d3ee);
+            background: linear-gradient(135deg, #7aabaf, #5a8a8f, #4a7a7f, #5a8a8f);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: shimmer 4s ease-in-out infinite;
             letter-spacing: 2px;
         }
         
@@ -109,20 +104,12 @@
             50% { background-position: 100% 50%; }
         }
         
-        .subtitle {
-            font-size: 0.75rem;
-            color: rgba(34, 211, 238, 0.3);
-            letter-spacing: 4px;
-            font-weight: 300;
-            margin-top: 4px;
-        }
-        
         .content {
             margin-bottom: 25px;
             padding: 20px 24px;
-            background: rgba(0, 200, 220, 0.03);
+            background: rgba(40, 90, 100, 0.025);
             border-radius: 16px;
-            border: 1px solid rgba(0, 200, 220, 0.06);
+            border: 1px solid rgba(60, 130, 140, 0.04);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -131,58 +118,30 @@
             margin-bottom: 14px;
             font-size: 0.98rem;
             padding: 4px 0;
-            border-bottom: 1px solid rgba(0, 200, 220, 0.03);
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(60, 130, 140, 0.02);
+            color: #8aacb0;
         }
         
         .line::before {
             content: '◆';
-            color: rgba(34, 211, 238, 0.25);
+            color: rgba(60, 130, 140, 0.15);
             font-size: 0.5rem;
-            margin-right: 4px;
-            flex-shrink: 0;
-        }
-        
-        /* @提及用蓝青色高亮 */
-        .line .highlight {
-            color: #22d3ee;
-            font-weight: 600;
-            text-shadow: 0 0 30px rgba(34, 211, 238, 0.15);
-        }
-        
-        .line .highlight-blue {
-            color: #67e8f9;
-            font-weight: 600;
-        }
-        
-        .badge {
-            display: inline-block;
-            font-size: 0.6rem;
-            background: rgba(34, 211, 238, 0.12);
-            color: #22d3ee;
-            padding: 1px 10px;
-            border-radius: 10px;
-            margin-left: 6px;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(34, 211, 238, 0.06);
+            margin-right: 8px;
         }
         
         .friends-section {
             margin-top: 10px;
             margin-bottom: 10px;
             padding: 16px 20px;
-            background: rgba(34, 211, 238, 0.04);
+            background: rgba(40, 90, 100, 0.03);
             border-radius: 12px;
-            border-left: 2px solid rgba(34, 211, 238, 0.2);
+            border-left: 2px solid rgba(60, 130, 140, 0.1);
         }
         
         .friends-title {
             font-size: 0.7rem;
             margin-bottom: 8px;
-            color: rgba(34, 211, 238, 0.6);
+            color: rgba(90, 150, 160, 0.4);
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -192,34 +151,34 @@
             font-size: 1rem;
             line-height: 2.2;
             letter-spacing: 0.5px;
-            color: #c8dce0;
+            color: #8aacb0;
         }
         
         .friend-list .tag {
             display: inline-block;
-            background: rgba(34, 211, 238, 0.06);
+            background: rgba(60, 130, 140, 0.04);
             padding: 2px 14px;
             border-radius: 20px;
             margin: 2px 6px 2px 0;
             font-size: 0.9rem;
-            border: 1px solid rgba(34, 211, 238, 0.06);
+            border: 1px solid rgba(60, 130, 140, 0.04);
             transition: all 0.2s;
-            color: #b0d4d8;
+            color: #8aacb0;
         }
         
         .friend-list .tag:hover {
-            background: rgba(34, 211, 238, 0.15);
-            border-color: rgba(34, 211, 238, 0.15);
+            background: rgba(60, 130, 140, 0.08);
+            border-color: rgba(60, 130, 140, 0.08);
             transform: translateY(-1px);
-            color: #67e8f9;
+            color: #9bb5ba;
         }
         
         .footer {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(0, 200, 220, 0.05);
+            border-top: 1px solid rgba(60, 130, 140, 0.04);
             font-size: 0.75rem;
-            color: rgba(34, 211, 238, 0.2);
+            color: rgba(90, 150, 160, 0.15);
             text-align: center;
             font-weight: 300;
             letter-spacing: 2px;
@@ -254,58 +213,31 @@
         <div class="avatar-wrapper">
             <img src="698574f2eee738a2970021e3ea8feca5.jpg" alt="头像" class="avatar" onerror="this.style.display='none'">
         </div>
-        <div class="name">✦ 冷涩调 / 兔子 ✦</div>
-        <div class="subtitle">— 入殓师爱梦 · 恶俗b · 朋友圈废话多 —</div>
+        <div class="name">=冷涩调/兔子</div>
     </div>
     
     <div class="content">
-        <div class="line">
-            <span>只在意</span>
-            <span class="highlight">@伊索卡尔</span>
-            <span class="highlight-blue">@团羽</span>
-        </div>
-        
-        <div class="line">
-            <span>入殓师爱梦 列有认可加我你死妈</span>
-            <span class="badge">乐乐</span>
-        </div>
-        
-        <div class="line">
-            <span>被我看到你发相关直接撕</span>
-            <span class="badge">么么叽</span>
-        </div>
-        
-        <div class="line">
-            <span>号脆刚别 触雷v10 且有mha属</span>
-            <span class="badge">介意直删！！</span>
-        </div>
-        
-        <div class="line">
-            <span>恶俗b 朋友圈废话多</span>
-            <span class="badge">✓</span>
-        </div>
+        <div class="line">只在意 @伊索卡尔 @团羽</div>
+        <div class="line">入殓师爱梦 列有认可加我你死妈 被我看到你发相关直接撕</div>
+        <div class="line">号脆刚别 触雷v10 且有mha属 介意直删</div>
+        <div class="line">恶俗b 朋友圈废话多</div>
         
         <div class="friends-section">
-            <div class="friends-title">♢ 盘点那些最爱的杯杯 ♢</div>
+            <div class="friends-title">盘点那些最爱的杯杯</div>
             <div class="friend-list">
-                <span class="tag">@阿翼</span>
-                <span class="tag">@阮熙</span>
-                <span class="tag">@稚时</span>
-                <span class="tag">@小鱼</span>
-                <span class="tag">@寒生</span>
-                <span class="tag">@懔栀</span>
-                <span class="tag">@良木缘</span>
+                @阿翼 @阮熙 @稚时 @小鱼 @寒生 @懔栀 @良木缘
+            </div>
+            <div class="friend-list" style="margin-top: 2px;">
+                一个乐乐 @乐迪
             </div>
         </div>
         
-        <div class="line">
-            <span>NG 小马宝莉 品客</span>
-            <span class="badge">加我全补</span>
-        </div>
+        <div class="line">NG 小马宝莉 品客</div>
+        <div class="line">加我全补</div>
     </div>
     
     <div class="footer">
-        ✦ 最后更新 · 2026年7月2日 ✦
+        最后更新: 2026年7月2日
     </div>
     
     <script>
