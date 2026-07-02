@@ -3,29 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>冷涩调调de自介</title>
+    <title>冷涩调调的自介</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         body {
-            background-color: #000000;
-            color: #ffffff;
-            line-height: 1.6;
+            min-height: 100vh;
+            /* 深海蓝青渐变：黑 → 深蓝青 → 黑 */
+            background: radial-gradient(ellipse at 50% 0%, #0a2a2e 0%, #0a1215 50%, #000000 100%);
+            color: #d4e8ed;
+            line-height: 1.7;
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+            font-weight: 400;
+            position: relative;
+        }
+        
+        /* 蓝青色光晕 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 70% 20%, rgba(0, 200, 220, 0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 30% 80%, rgba(0, 150, 200, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .header, .content, .footer {
+            position: relative;
+            z-index: 1;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #333;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(0, 200, 220, 0.08);
+            position: relative;
+        }
+        
+        /* 头像发光圈改为蓝青色 */
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4, #0891b2, #22d3ee);
+            background-size: 300% 300%;
+            animation: glowSpin 4s ease-in-out infinite;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.5;
+        }
+        
+        @keyframes glowSpin {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .avatar {
@@ -33,147 +84,236 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 15px;
-            border: 2px solid #666;
+            border: 2px solid rgba(34, 211, 238, 0.3);
             display: block;
+            margin: 0 auto;
+            position: relative;
+            background: #0a1a1a;
         }
         
+        /* 名字：蓝青渐变 */
         .name {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 5px;
+            background: linear-gradient(135deg, #67e8f9, #22d3ee, #06b6d4, #22d3ee);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 0.75rem;
+            color: rgba(34, 211, 238, 0.3);
+            letter-spacing: 4px;
+            font-weight: 300;
+            margin-top: 4px;
         }
         
         .content {
             margin-bottom: 25px;
-            padding: 0 10px;
+            padding: 20px 24px;
+            background: rgba(0, 200, 220, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 200, 220, 0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .line {
-            margin-bottom: 12px;
-            font-size: 1rem;
+            margin-bottom: 14px;
+            font-size: 0.98rem;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(0, 200, 220, 0.03);
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .line::before {
+            content: '◆';
+            color: rgba(34, 211, 238, 0.25);
+            font-size: 0.5rem;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
+        
+        /* @提及用蓝青色高亮 */
+        .line .highlight {
+            color: #22d3ee;
+            font-weight: 600;
+            text-shadow: 0 0 30px rgba(34, 211, 238, 0.15);
+        }
+        
+        .line .highlight-blue {
+            color: #67e8f9;
+            font-weight: 600;
+        }
+        
+        .badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            background: rgba(34, 211, 238, 0.12);
+            color: #22d3ee;
+            padding: 1px 10px;
+            border-radius: 10px;
+            margin-left: 6px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(34, 211, 238, 0.06);
         }
         
         .friends-section {
-            margin-top: 25px;
-            margin-bottom: 25px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 16px 20px;
+            background: rgba(34, 211, 238, 0.04);
+            border-radius: 12px;
+            border-left: 2px solid rgba(34, 211, 238, 0.2);
         }
         
         .friends-title {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: #ccc;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            color: rgba(34, 211, 238, 0.6);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
         
         .friend-list {
             font-size: 1rem;
-            line-height: 1.8;
+            line-height: 2.2;
+            letter-spacing: 0.5px;
+            color: #c8dce0;
         }
         
-        /* 新增的图片展示区域样式 */
-        .image-section {
-            margin: 30px 0;
-            width: 100%;
+        .friend-list .tag {
+            display: inline-block;
+            background: rgba(34, 211, 238, 0.06);
+            padding: 2px 14px;
+            border-radius: 20px;
+            margin: 2px 6px 2px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(34, 211, 238, 0.06);
+            transition: all 0.2s;
+            color: #b0d4d8;
         }
         
-        .image-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        .image-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
-        }
-        
-        .display-image {
-            max-width: 100%;
-            max-height: 500px;
-            border-radius: 10px;
-            border: 1px solid #444;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        
-        .thin-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #666, transparent);
-            margin: 30px 20px;
+        .friend-list .tag:hover {
+            background: rgba(34, 211, 238, 0.15);
+            border-color: rgba(34, 211, 238, 0.15);
+            transform: translateY(-1px);
+            color: #67e8f9;
         }
         
         .footer {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #333;
-            font-size: 0.9rem;
-            color: #999;
+            border-top: 1px solid rgba(0, 200, 220, 0.05);
+            font-size: 0.75rem;
+            color: rgba(34, 211, 238, 0.2);
             text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
         
-        /* 响应式调整 */
         @media (max-width: 600px) {
             body {
-                padding: 15px;
+                padding: 12px;
             }
-            
             .avatar {
                 width: 100px;
                 height: 100px;
             }
-            
-            .display-image {
-                max-height: 400px;
+            .name {
+                font-size: 1.5rem;
+            }
+            .content {
+                padding: 16px;
+            }
+            .line {
+                font-size: 0.9rem;
+            }
+            .friend-list .tag {
+                font-size: 0.8rem;
+                padding: 1px 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="698574f2eee738a2970021e3ea8feca5.jpg" alt="头像" class="avatar" onerror="this.style.display='none'">
-        <div class="name">=冷涩调/兔子</div>
+        <div class="avatar-wrapper">
+            <img src="698574f2eee738a2970021e3ea8feca5.jpg" alt="头像" class="avatar" onerror="this.style.display='none'">
+        </div>
+        <div class="name">✦ 冷涩调 / 兔子 ✦</div>
+        <div class="subtitle">— 入殓师爱梦 · 恶俗b · 朋友圈废话多 —</div>
     </div>
     
     <div class="content">
-        <div class="line">只在意 @伊索卡尔 @团羽</div>
-        <div class="line">入殓师爱梦 列有认可加我你死妈 被我看到你发相关直接撕</div>
-        <div class="line">号脆刚别 触雷v10 且有mha属 介意直删</div>
-        <div class="line">恶俗b 朋友圈废话多</div>
+        <div class="line">
+            <span>只在意</span>
+            <span class="highlight">@伊索卡尔</span>
+            <span class="highlight-blue">@团羽</span>
+        </div>
+        
+        <div class="line">
+            <span>入殓师爱梦 列有认可加我你死妈</span>
+            <span class="badge">乐乐</span>
+        </div>
+        
+        <div class="line">
+            <span>被我看到你发相关直接撕</span>
+            <span class="badge">么么叽</span>
+        </div>
+        
+        <div class="line">
+            <span>号脆刚别 触雷v10 且有mha属</span>
+            <span class="badge">介意直删！！</span>
+        </div>
+        
+        <div class="line">
+            <span>恶俗b 朋友圈废话多</span>
+            <span class="badge">✓</span>
+        </div>
         
         <div class="friends-section">
-            <div class="friends-title">盘点那些最爱的杯杯</div>
+            <div class="friends-title">♢ 盘点那些最爱的杯杯 ♢</div>
             <div class="friend-list">
-                @阿翼 @阮熙 @稚时 @小鱼 @寒生 @懔栀 @良木缘
+                <span class="tag">@阿翼</span>
+                <span class="tag">@阮熙</span>
+                <span class="tag">@稚时</span>
+                <span class="tag">@小鱼</span>
+                <span class="tag">@寒生</span>
+                <span class="tag">@懔栀</span>
+                <span class="tag">@良木缘</span>
             </div>
         </div>
         
-        <div class="line">NG 小马宝莉 品客</div>
-        <div class="line">加我全补</div>
+        <div class="line">
+            <span>NG 小马宝莉 品客</span>
+            <span class="badge">加我全补</span>
+        </div>
     </div>
     
     <div class="footer">
-        最后更新: 2026年7月2日
+        ✦ 最后更新 · 2026年7月2日 ✦
     </div>
     
     <script>
-        // 图片加载失败的备用方案
         document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('img');
+            const images = document.querySelectorAll('.avatar');
             images.forEach(img => {
                 img.onerror = function() {
                     this.style.display = 'none';
-                    // 可以在这里添加备用图片或提示
-                    const parent = this.parentElement;
-                    if (parent.classList.contains('image-container')) {
-                        const message = document.createElement('div');
-                        message.style.color = '#999';
-                        message.style.textAlign = 'center';
-                        message.style.padding = '20px';
-                        message.textContent = '图片加载失败';
-                        parent.appendChild(message);
-                    }
                 };
             });
         });
