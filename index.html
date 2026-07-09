@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>冷涩调调的自介</title>
     <style>
         * {
@@ -154,10 +154,9 @@
             color: #8aacb0;
         }
 
-        /* 粗体样式：仅用于“最牛逼的深交”整行，以及“东京”和“罪朽”两个名字 */
         .bold-deep {
             font-weight: 700;
-            color: #9bb5ba;   /* 保持与整体颜色一致，仅加粗 */
+            color: #9bb5ba;
         }
 
         .friend-list .tag {
@@ -178,18 +177,94 @@
             transform: translateY(-1px);
             color: #9bb5ba;
         }
-        
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(60, 130, 140, 0.04);
-            font-size: 0.75rem;
-            color: rgba(90, 150, 160, 0.15);
-            text-align: center;
-            font-weight: 300;
-            letter-spacing: 2px;
+
+        /* ===== 音乐卡片 ===== */
+        .music-card {
+            margin: 18px 0 14px 0;
+            padding: 16px 20px 18px 20px;
+            background: rgba(40, 90, 100, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(60, 130, 140, 0.08);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
-        
+
+        /* 日记天数行：显示 "和伊索卡尔已经 XX 天" */
+        .diary-days-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(60, 130, 140, 0.04);
+        }
+
+        .diary-days {
+            font-size: 0.8rem;
+            color: rgba(90, 150, 160, 0.4);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .diary-days strong {
+            color: rgba(90, 150, 160, 0.6);
+            font-weight: 500;
+        }
+
+        /* 播放按钮：长方形，宽屏 */
+        .play-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 0;
+            background: rgba(60, 130, 140, 0.06);
+            border: 1px solid rgba(60, 130, 140, 0.10);
+            border-radius: 16px;
+            color: #8aacb0;
+            font-size: 1.05rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            gap: 10px;
+        }
+
+        .play-btn:hover {
+            background: rgba(60, 130, 140, 0.10);
+            border-color: rgba(60, 130, 140, 0.18);
+            transform: scale(1.01);
+            color: #aac8cc;
+        }
+
+        .play-btn:active {
+            transform: scale(0.97);
+            background: rgba(60, 130, 140, 0.04);
+        }
+
+        .play-btn .icon {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .play-btn .label {
+            font-weight: 400;
+        }
+
+        .play-btn .sub {
+            font-size: 0.65rem;
+            opacity: 0.3;
+            margin-left: 2px;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 12px;
@@ -211,6 +286,39 @@
                 font-size: 0.8rem;
                 padding: 1px 10px;
             }
+            .music-card {
+                padding: 14px 14px 16px 14px;
+                border-radius: 18px;
+            }
+            .play-btn {
+                padding: 14px 0;
+                font-size: 0.95rem;
+                border-radius: 14px;
+            }
+            .diary-days {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .play-btn {
+                padding: 12px 0;
+                font-size: 0.88rem;
+            }
+            .music-card {
+                padding: 12px 10px 14px 10px;
+            }
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(60, 130, 140, 0.04);
+            font-size: 0.75rem;
+            color: rgba(90, 150, 160, 0.15);
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -228,27 +336,40 @@
         <div class="line">号脆刚别 触雷v10 且有mha属 介意直删</div>
         <div class="line">恶俗b 朋友圈废话多</div>
         
-        <!-- 盘点的杯杯部分：标题不变，内部顺序为：深交行(粗体) + 新增行1(东京/罪朽单独粗体) + 新增行2 + 杯杯名单 -->
+        <!-- 杯杯部分 -->
         <div class="friends-section">
             <div class="friends-title">盘点那些最爱的杯杯</div>
-            <!-- 最牛逼的深交行（第一行，整行加粗） -->
             <div class="friend-list bold-deep" style="margin-top: 0; margin-bottom: 2px;">
                 他说他要当我最牛逼的深交 @乐迪
             </div>
-            <!-- 新增行1：世一萌的乐乐@东京 @罪朽，其中“东京”和“罪朽”单独粗体 -->
             <div class="friend-list" style="margin-top: 0; margin-bottom: 2px;">
                 世一萌的乐乐@<span class="bold-deep">东京</span> @<span class="bold-deep">罪朽</span>
             </div>
-            <!-- 新增行2：这个人是谁呀 可能是我的恩师吧@斩频 -->
             <div class="friend-list" style="margin-top: 0; margin-bottom: 4px;">
                 这个人是谁呀 可能是我的恩师吧@斩频
             </div>
-            <!-- 杯杯名单（放在新增行2下面） -->
             <div class="friend-list" style="margin-top: 0;">
                 @阿翼 @阮熙 @稚时 @小鱼 @寒生 @懔栀 @良木缘
             </div>
         </div>
         
+        <!-- ===== 音乐卡片：显示 "和伊索卡尔已经 XX 天" + 按钮 ===== -->
+        <div class="music-card">
+            <!-- 天数行：和伊索卡尔已经 XX 天 -->
+            <div class="diary-days-row">
+                <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
+            </div>
+            <!-- 播放按钮 -->
+            <a href="https://music.163.com/#/search/m/?s=%E9%9B%A8%E7%88%B1&type=1" 
+               target="_blank" 
+               class="play-btn" 
+               id="musicPlayBtn">
+                <span class="icon">🎧</span>
+                <span class="label">点此收听我的日记</span>
+                <span class="sub">♫</span>
+            </a>
+        </div>
+
         <div class="line">NG 小马宝莉 品客</div>
         <div class="line">加我全补</div>
     </div>
@@ -259,12 +380,32 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 头像容错
             const images = document.querySelectorAll('.avatar');
             images.forEach(img => {
                 img.onerror = function() {
                     this.style.display = 'none';
                 };
             });
+
+            // ===== 天数自动计算：从 2022-06-25 到今天，显示 "和伊索卡尔已经 XX 天" =====
+            function updateDiaryDays() {
+                const startDate = new Date(2022, 5, 25); // 2022-06-25
+                const today = new Date();
+                const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+                const now = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                
+                const diffTime = now.getTime() - start.getTime();
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                const displayEl = document.getElementById('diaryDaysDisplay');
+                if (displayEl) {
+                    const days = diffDays >= 0 ? diffDays : 0;
+                    displayEl.innerHTML = `💙 和伊索卡尔已经 <strong>${days}</strong> 天`;
+                }
+            }
+
+            updateDiaryDays();
         });
     </script>
 </body>
