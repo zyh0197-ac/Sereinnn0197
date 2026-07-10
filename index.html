@@ -17,7 +17,7 @@
         body {
             min-height: 100vh;
             background: radial-gradient(ellipse at 50% 0%, #0a1214 0%, #060a0b 50%, #000000 100%);
-            color: #6e8a8f;
+            color: #7a8f93;
             line-height: 1.7;
             padding: 20px;
             max-width: 800px;
@@ -48,7 +48,7 @@
             text-align: center;
             margin-bottom: 35px;
             padding-bottom: 25px;
-            border-bottom: 1px solid rgba(50, 100, 110, 0.04);
+            border-bottom: 1px solid rgba(60, 110, 120, 0.08);
         }
         
         .avatar-wrapper {
@@ -67,7 +67,7 @@
             animation: glowSpin 6s ease-in-out infinite;
             z-index: -1;
             filter: blur(12px);
-            opacity: 0.08; /* 从0.15降到0.08，更弱 */
+            opacity: 0.10;
         }
         
         @keyframes glowSpin {
@@ -80,7 +80,7 @@
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid rgba(50, 100, 110, 0.10);
+            border: 1px solid rgba(60, 110, 120, 0.15);
             display: block;
             margin: 0 auto;
             position: relative;
@@ -91,13 +91,13 @@
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 5px;
-            background: linear-gradient(135deg, #5a8a8f, #3a6a6f, #2a5a5f, #3a6a6f);
+            background: linear-gradient(135deg, #6a9a9f, #4a7a7f, #3a6a6f, #4a7a7f);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s ease-in-out infinite;
-            letter-spacing: 6px; /* 从2px改成6px，间距拉大 */
-            opacity: 0.8;
+            letter-spacing: 6px;
+            opacity: 0.85;
         }
         
         @keyframes shimmer {
@@ -108,9 +108,9 @@
         .content {
             margin-bottom: 25px;
             padding: 20px 24px;
-            background: rgba(30, 70, 80, 0.015);
+            background: rgba(30, 70, 80, 0.02);
             border-radius: 16px;
-            border: 1px solid rgba(50, 100, 110, 0.03);
+            border: 1px solid rgba(60, 110, 120, 0.06);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
@@ -119,13 +119,13 @@
             margin-bottom: 14px;
             font-size: 0.98rem;
             padding: 4px 0;
-            border-bottom: 1px solid rgba(50, 100, 110, 0.015);
-            color: #6a868a;
+            border-bottom: 1px solid rgba(60, 110, 120, 0.04);
+            color: #7a8f93;
         }
         
         .line::before {
             content: '◆';
-            color: rgba(50, 100, 110, 0.10);
+            color: rgba(60, 110, 120, 0.15);
             font-size: 0.5rem;
             margin-right: 8px;
         }
@@ -134,15 +134,15 @@
             margin-top: 10px;
             margin-bottom: 10px;
             padding: 16px 20px;
-            background: rgba(30, 70, 80, 0.02);
+            background: rgba(30, 70, 80, 0.03);
             border-radius: 12px;
-            border-left: 2px solid rgba(50, 100, 110, 0.06);
+            border-left: 2px solid rgba(60, 110, 120, 0.10);
         }
         
         .friends-title {
             font-size: 0.7rem;
             margin-bottom: 8px;
-            color: rgba(70, 120, 130, 0.30);
+            color: rgba(80, 130, 140, 0.35);
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -152,40 +152,40 @@
             font-size: 1rem;
             line-height: 2.2;
             letter-spacing: 0.5px;
-            color: #6a868a;
+            color: #7a8f93;
         }
 
         .bold-deep {
             font-weight: 700;
-            color: #7a969a;
+            color: #8aa8ac;
         }
 
         .friend-list .tag {
             display: inline-block;
-            background: rgba(50, 100, 110, 0.03);
+            background: rgba(60, 110, 120, 0.05);
             padding: 2px 14px;
             border-radius: 20px;
             margin: 2px 6px 2px 0;
             font-size: 0.9rem;
-            border: 1px solid rgba(50, 100, 110, 0.03);
+            border: 1px solid rgba(60, 110, 120, 0.05);
             transition: all 0.2s;
-            color: #6a868a;
+            color: #7a8f93;
         }
         
         .friend-list .tag:hover {
-            background: rgba(50, 100, 110, 0.05);
-            border-color: rgba(50, 100, 110, 0.05);
+            background: rgba(60, 110, 120, 0.08);
+            border-color: rgba(60, 110, 120, 0.08);
             transform: translateY(-1px);
-            color: #7a969a;
+            color: #8aa8ac;
         }
 
         /* ===== 音乐卡片 ===== */
         .music-card {
             margin: 18px 0 14px 0;
             padding: 16px 20px 18px 20px;
-            background: rgba(30, 70, 80, 0.02);
+            background: rgba(30, 70, 80, 0.03);
             border-radius: 20px;
-            border: 1px solid rgba(50, 100, 110, 0.05);
+            border: 1px solid rgba(60, 110, 120, 0.08);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
@@ -200,18 +200,18 @@
             justify-content: flex-end;
             margin-bottom: 10px;
             padding-bottom: 6px;
-            border-bottom: 1px solid rgba(50, 100, 110, 0.03);
+            border-bottom: 1px solid rgba(60, 110, 120, 0.05);
         }
 
         .diary-days {
             font-size: 0.8rem;
-            color: rgba(70, 120, 130, 0.30);
+            color: rgba(80, 130, 140, 0.35);
             font-weight: 300;
             letter-spacing: 0.5px;
         }
 
         .diary-days strong {
-            color: rgba(70, 120, 130, 0.45);
+            color: rgba(80, 130, 140, 0.50);
             font-weight: 500;
         }
 
@@ -221,10 +221,10 @@
             justify-content: center;
             width: 100%;
             padding: 16px 0;
-            background: rgba(50, 100, 110, 0.04);
-            border: 1px solid rgba(50, 100, 110, 0.06);
+            background: rgba(60, 110, 120, 0.06);
+            border: 1px solid rgba(60, 110, 120, 0.08);
             border-radius: 16px;
-            color: #6a868a;
+            color: #7a8f93;
             font-size: 1.05rem;
             font-weight: 400;
             letter-spacing: 2px;
@@ -238,15 +238,15 @@
         }
 
         .play-btn:hover {
-            background: rgba(50, 100, 110, 0.07);
-            border-color: rgba(50, 100, 110, 0.10);
+            background: rgba(60, 110, 120, 0.10);
+            border-color: rgba(60, 110, 120, 0.12);
             transform: scale(1.01);
-            color: #7a969a;
+            color: #8aa8ac;
         }
 
         .play-btn:active {
             transform: scale(0.97);
-            background: rgba(50, 100, 110, 0.02);
+            background: rgba(60, 110, 120, 0.04);
         }
 
         .play-btn .icon {
@@ -260,19 +260,18 @@
 
         .play-btn .sub {
             font-size: 0.65rem;
-            opacity: 0.20;
+            opacity: 0.25;
             margin-left: 2px;
         }
 
-        /* ===== 访客计数 ===== */
         .visitor-count {
             margin-top: 10px;
             padding: 10px 0 4px 0;
             font-size: 0.65rem;
-            color: rgba(70, 120, 130, 0.15);
+            color: rgba(80, 130, 140, 0.18);
             text-align: center;
             letter-spacing: 1.5px;
-            border-top: 1px solid rgba(50, 100, 110, 0.02);
+            border-top: 1px solid rgba(60, 110, 120, 0.04);
         }
 
         @media (max-width: 600px) {
@@ -327,9 +326,9 @@
         .footer {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(50, 100, 110, 0.03);
+            border-top: 1px solid rgba(60, 110, 120, 0.05);
             font-size: 0.75rem;
-            color: rgba(70, 120, 130, 0.10);
+            color: rgba(80, 130, 140, 0.12);
             text-align: center;
             font-weight: 300;
             letter-spacing: 2px;
@@ -380,7 +379,6 @@
                 <span class="label">点此收听我的日记</span>
                 <span class="sub">♫</span>
             </a>
-            <!-- 访客计数：从3748开始，不包含自己 -->
             <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
         </div>
 
@@ -401,7 +399,6 @@
                 };
             });
 
-            // 和伊索卡尔天数
             function updateDiaryDays() {
                 const startDate = new Date(2022, 5, 25);
                 const today = new Date();
@@ -420,10 +417,8 @@
 
             updateDiaryDays();
 
-            // ===== 访客计数：从3748开始 =====
             const visitorEl = document.getElementById('visitorDisplay');
             if (visitorEl) {
-                // 从 localStorage 读取，如果没有就初始化为3748
                 let count = localStorage.getItem('visitorCount');
                 if (count === null) {
                     count = 3748;
