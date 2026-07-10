@@ -187,20 +187,6 @@
             color: #8aa8ac;
         }
 
-        .music-card {
-            margin: 18px 0 14px 0;
-            padding: 16px 20px 18px 20px;
-            background: rgba(30, 70, 80, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(60, 110, 120, 0.08);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-
         .diary-days-row {
             display: flex;
             align-items: baseline;
@@ -222,70 +208,139 @@
             font-weight: 500;
         }
 
-        .music-iframe-wrapper {
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-
-        .music-iframe-wrapper iframe {
-            width: 100%;
-            height: 86px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(10, 18, 20, 0.6);
-        }
-
-        .play-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 14px 0;
-            background: rgba(60, 110, 120, 0.06);
+        /* ===== 第五人格卡片 ===== */
+        .game-card {
+            margin: 14px 0 6px 0;
+            padding: 16px 20px;
+            background: rgba(30, 70, 80, 0.03);
+            border-radius: 20px;
             border: 1px solid rgba(60, 110, 120, 0.08);
-            border-radius: 16px;
-            color: #7a8f93;
-            font-size: 1.05rem;
-            font-weight: 400;
-            letter-spacing: 2px;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
             cursor: pointer;
             transition: all 0.25s ease;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-            text-decoration: none;
-            gap: 10px;
-            margin-bottom: 12px;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .play-btn:hover {
-            background: rgba(60, 110, 120, 0.10);
+        .game-card:hover {
+            background: rgba(60, 110, 120, 0.08);
             border-color: rgba(60, 110, 120, 0.12);
             transform: scale(1.01);
-            color: #8aa8ac;
         }
 
-        .play-btn:active {
+        .game-card:active {
             transform: scale(0.97);
             background: rgba(60, 110, 120, 0.04);
         }
 
-        .play-btn .icon {
-            font-size: 1.2rem;
-            line-height: 1;
+        .game-card .icon {
+            font-size: 1.3rem;
+            margin-right: 6px;
         }
 
-        .play-btn .label {
+        .game-card .label {
+            font-size: 0.95rem;
+            color: #7a8f93;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+        }
+
+        .game-card .sub {
+            font-size: 0.6rem;
+            color: rgba(80, 130, 140, 0.15);
+            letter-spacing: 1px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ===== 自定义提示弹窗 ===== */
+        .toast-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .toast-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .toast-box {
+            background: rgba(10, 18, 20, 0.95);
+            border: 1px solid rgba(60, 110, 120, 0.15);
+            border-radius: 24px;
+            padding: 32px 36px 28px 36px;
+            max-width: 340px;
+            width: 85%;
+            text-align: center;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+            animation: scaleIn 0.3s ease;
+        }
+
+        .toast-box .emoji {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .toast-box .title {
+            font-size: 1.1rem;
+            color: #8aa8ac;
+            letter-spacing: 1px;
             font-weight: 400;
+            margin-bottom: 6px;
         }
 
-        .play-btn .sub {
-            font-size: 0.65rem;
-            opacity: 0.25;
-            margin-left: 2px;
+        .toast-box .msg {
+            font-size: 0.85rem;
+            color: rgba(80, 130, 140, 0.4);
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .toast-box .btn-close {
+            background: rgba(60, 110, 120, 0.08);
+            border: 1px solid rgba(60, 110, 120, 0.10);
+            border-radius: 12px;
+            padding: 10px 32px;
+            color: #7a8f93;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 300;
+        }
+
+        .toast-box .btn-close:hover {
+            background: rgba(60, 110, 120, 0.12);
+            border-color: rgba(60, 110, 120, 0.15);
+            color: #8aa8ac;
         }
 
         .visitor-count {
@@ -320,36 +375,29 @@
                 font-size: 0.8rem;
                 padding: 1px 10px;
             }
-            .music-card {
-                padding: 14px 14px 16px 14px;
-                border-radius: 18px;
-            }
-            .play-btn {
-                padding: 12px 0;
-                font-size: 0.95rem;
-                border-radius: 14px;
-            }
             .diary-days {
                 font-size: 0.7rem;
             }
-            .music-iframe-wrapper iframe {
-                height: 76px;
+            .game-card .label {
+                font-size: 0.85rem;
+            }
+            .toast-box {
+                padding: 28px 24px 24px 24px;
+            }
+            .toast-box .emoji {
+                font-size: 2.4rem;
             }
         }
 
         @media (max-width: 400px) {
-            .play-btn {
-                padding: 10px 0;
-                font-size: 0.88rem;
-            }
-            .music-card {
-                padding: 12px 10px 14px 10px;
-            }
             .name {
                 letter-spacing: 3px;
             }
-            .music-iframe-wrapper iframe {
-                height: 66px;
+            .game-card {
+                padding: 14px 14px;
+            }
+            .game-card .label {
+                font-size: 0.8rem;
             }
         }
 
@@ -394,34 +442,40 @@
                 @阿翼 @阮熙 @稚时 @小鱼 @寒生 @懔栀 @良木缘
             </div>
         </div>
-        
-        <div class="music-card">
-            <div class="diary-days-row">
-                <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
-            </div>
 
-            <div class="play-btn" id="playBtn">
-                <span class="icon">🎧</span>
-                <span class="label" id="playBtnLabel">点此收听我的日记</span>
-                <span class="sub">♫</span>
+        <!-- ===== 第五人格卡片 ===== -->
+        <div class="game-card" id="gameCard">
+            <div>
+                <span class="icon">🕯️</span>
+                <span class="label">第五人格 · 入殓师</span>
+                <span class="sub">点击开启游戏 →</span>
             </div>
-
-            <div class="music-iframe-wrapper" id="musicIframeWrapper" style="display: none;">
-                <iframe 
-                    src="https://music.163.com/outchain/player?type=2&id=188659&auto=0&height=66" 
-                    allow="autoplay; encrypted-media">
-                </iframe>
-            </div>
-
-            <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
         </div>
 
-        <div class="line">NG 小马宝莉 品客</div>
+        <!-- 天数行 -->
+        <div class="diary-days-row" style="margin-top: 10px; margin-bottom: 4px;">
+            <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
+        </div>
+
+        <!-- 访客计数 -->
+        <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
+
+        <div class="line" style="margin-top: 14px;">NG 小马宝莉 品客</div>
         <div class="line">加我全补</div>
     </div>
     
     <div class="footer">
         最后更新: 2026年7月2日
+    </div>
+
+    <!-- ===== 自定义提示弹窗 ===== -->
+    <div class="toast-overlay" id="toastOverlay">
+        <div class="toast-box">
+            <span class="emoji">😿</span>
+            <div class="title">omg 跳转失败了呢</div>
+            <div class="msg">我的技术还是太差了<br>要不你手动打开第五人格吧</div>
+            <button class="btn-close" id="toastCloseBtn">知道了</button>
+        </div>
     </div>
     
     <script>
@@ -462,43 +516,81 @@
                 visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
             }
 
-            const playBtn = document.getElementById('playBtn');
-            const iframeWrapper = document.getElementById('musicIframeWrapper');
-            const btnLabel = document.getElementById('playBtnLabel');
-            let isPlaying = false;
+            // ===== 第五人格卡片点击 =====
+            const gameCard = document.getElementById('gameCard');
+            const toastOverlay = document.getElementById('toastOverlay');
+            const toastCloseBtn = document.getElementById('toastCloseBtn');
+            let hasShownToast = false;
 
-            function playClickSound() {
-                try {
-                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    const oscillator = audioCtx.createOscillator();
-                    const gainNode = audioCtx.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    
-                    oscillator.frequency.value = 800;
-                    oscillator.type = 'sine';
-                    
-                    gainNode.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
-                    
-                    oscillator.start(audioCtx.currentTime);
-                    oscillator.stop(audioCtx.currentTime + 0.08);
-                } catch (e) {}
+            function showToast() {
+                if (hasShownToast) return;
+                hasShownToast = true;
+                toastOverlay.classList.add('show');
             }
 
-            playBtn.addEventListener('click', function() {
-                playClickSound();
+            toastCloseBtn.addEventListener('click', function() {
+                toastOverlay.classList.remove('show');
+                hasShownToast = false;
+            });
 
-                if (!isPlaying) {
-                    iframeWrapper.style.display = 'block';
-                    btnLabel.textContent = '收起播放器';
-                    isPlaying = true;
-                } else {
-                    iframeWrapper.style.display = 'none';
-                    btnLabel.textContent = '点此收听我的日记';
-                    isPlaying = false;
+            toastOverlay.addEventListener('click', function(e) {
+                if (e.target === toastOverlay) {
+                    toastOverlay.classList.remove('show');
+                    hasShownToast = false;
                 }
+            });
+
+            gameCard.addEventListener('click', function() {
+                const iosScheme = 'identityv://';
+                const appStoreUrl = 'https://apps.apple.com/cn/app/%E7%AC%AC%E4%BA%94%E4%BA%BA%E6%A0%BC/id1232556921';
+                const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.netease.idv.googleplay';
+                const officialSite = 'https://idv.163.com/';
+
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                const isAndroid = /Android/.test(navigator.userAgent);
+
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = iosScheme;
+                document.body.appendChild(iframe);
+
+                let timeoutId = null;
+                let isAppOpened = false;
+
+                function onVisibilityChange() {
+                    if (document.hidden) {
+                        isAppOpened = true;
+                        clearTimeout(timeoutId);
+                        document.removeEventListener('visibilitychange', onVisibilityChange);
+                        if (iframe.parentNode) {
+                            document.body.removeChild(iframe);
+                        }
+                    }
+                }
+
+                document.addEventListener('visibilitychange', onVisibilityChange);
+
+                timeoutId = setTimeout(function() {
+                    document.removeEventListener('visibilitychange', onVisibilityChange);
+                    if (iframe.parentNode) {
+                        document.body.removeChild(iframe);
+                    }
+
+                    if (!isAppOpened) {
+                        // 没唤起APP，显示弹窗 + 跳转备选
+                        showToast();
+                        // 2秒后跳转备选页面
+                        setTimeout(function() {
+                            if (isIOS) {
+                                window.location.href = appStoreUrl;
+                            } else if (isAndroid) {
+                                window.location.href = googlePlayUrl;
+                            } else {
+                                window.location.href = officialSite;
+                            }
+                        }, 2000);
+                    }
+                }, 2500);
             });
         });
     </script>
