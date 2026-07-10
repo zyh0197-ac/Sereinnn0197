@@ -259,7 +259,7 @@
             display: block;
         }
 
-        /* ===== 自定义提示弹窗 ===== */
+        /* ===== 提示弹窗 ===== */
         .toast-overlay {
             position: fixed;
             top: 0;
@@ -443,21 +443,19 @@
             </div>
         </div>
 
-        <!-- ===== 第五人格卡片 ===== -->
+        <!-- ===== 第五人格卡片 🌼 ===== -->
         <div class="game-card" id="gameCard">
             <div>
-                <span class="icon">🕯️</span>
+                <span class="icon">🌼</span>
                 <span class="label">第五人格 · 入殓师</span>
                 <span class="sub">点击开启游戏 →</span>
             </div>
         </div>
 
-        <!-- 天数行 -->
         <div class="diary-days-row" style="margin-top: 10px; margin-bottom: 4px;">
             <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
         </div>
 
-        <!-- 访客计数 -->
         <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
 
         <div class="line" style="margin-top: 14px;">NG 小马宝莉 品客</div>
@@ -468,7 +466,7 @@
         最后更新: 2026年7月2日
     </div>
 
-    <!-- ===== 自定义提示弹窗 ===== -->
+    <!-- ===== 弹窗 ===== -->
     <div class="toast-overlay" id="toastOverlay">
         <div class="toast-box">
             <span class="emoji">😿</span>
@@ -516,7 +514,7 @@
                 visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
             }
 
-            // ===== 第五人格卡片点击 =====
+            // ===== 卡片点击 =====
             const gameCard = document.getElementById('gameCard');
             const toastOverlay = document.getElementById('toastOverlay');
             const toastCloseBtn = document.getElementById('toastCloseBtn');
@@ -577,9 +575,7 @@
                     }
 
                     if (!isAppOpened) {
-                        // 没唤起APP，显示弹窗 + 跳转备选
                         showToast();
-                        // 2秒后跳转备选页面
                         setTimeout(function() {
                             if (isIOS) {
                                 window.location.href = appStoreUrl;
