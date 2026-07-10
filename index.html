@@ -26,7 +26,6 @@
             position: relative;
         }
 
-        /* ===== 背景噪点纹理 ===== */
         body::after {
             content: '';
             position: fixed;
@@ -105,7 +104,6 @@
             background: #060a0b;
         }
         
-        /* ===== 名字改成纯色灰白 ===== */
         .name {
             font-size: 2rem;
             font-weight: 700;
@@ -189,7 +187,6 @@
             color: #8aa8ac;
         }
 
-        /* ===== 音乐卡片（内嵌播放器） ===== */
         .music-card {
             margin: 18px 0 14px 0;
             padding: 16px 20px 18px 20px;
@@ -225,7 +222,6 @@
             font-weight: 500;
         }
 
-        /* 内嵌播放器 iframe */
         .music-iframe-wrapper {
             width: 100%;
             border-radius: 12px;
@@ -241,7 +237,6 @@
             background: rgba(10, 18, 20, 0.6);
         }
 
-        /* 按键音效按钮（取代之前的跳转按钮） */
         .play-btn {
             display: flex;
             align-items: center;
@@ -384,7 +379,6 @@
         <div class="line">号脆刚别 触雷v10 且有mha属 介意直删</div>
         <div class="line">恶俗b 朋友圈废话多</div>
         
-        <!-- 杯杯部分 -->
         <div class="friends-section">
             <div class="friends-title">你们是我最爱的人</div>
             <div class="friend-list bold-deep" style="margin-top: 0; margin-bottom: 2px;">
@@ -401,20 +395,17 @@
             </div>
         </div>
         
-        <!-- ===== 音乐卡片：内嵌播放器 + 按键音效 ===== -->
         <div class="music-card">
             <div class="diary-days-row">
                 <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
             </div>
 
-            <!-- 播放按钮（带音效） -->
             <div class="play-btn" id="playBtn">
                 <span class="icon">🎧</span>
                 <span class="label" id="playBtnLabel">点此收听我的日记</span>
                 <span class="sub">♫</span>
             </div>
 
-            <!-- 内嵌网易云播放器（雨爱） -->
             <div class="music-iframe-wrapper" id="musicIframeWrapper" style="display: none;">
                 <iframe 
                     src="https://music.163.com/outchain/player?type=2&id=188659&auto=0&height=66" 
@@ -435,7 +426,6 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ===== 头像容错 =====
             const images = document.querySelectorAll('.avatar');
             images.forEach(img => {
                 img.onerror = function() {
@@ -443,7 +433,6 @@
                 };
             });
 
-            // ===== 和伊索卡尔天数 =====
             function updateDiaryDays() {
                 const startDate = new Date(2022, 5, 25);
                 const today = new Date();
@@ -461,7 +450,6 @@
             }
             updateDiaryDays();
 
-            // ===== 访客计数 =====
             const visitorEl = document.getElementById('visitorDisplay');
             if (visitorEl) {
                 let count = localStorage.getItem('visitorCount');
@@ -474,13 +462,11 @@
                 visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
             }
 
-            // ===== 按键音效 + 播放器展开 =====
             const playBtn = document.getElementById('playBtn');
             const iframeWrapper = document.getElementById('musicIframeWrapper');
             const btnLabel = document.getElementById('playBtnLabel');
             let isPlaying = false;
 
-            // 生成极简音效（Web Audio）
             function playClickSound() {
                 try {
                     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -498,16 +484,12 @@
                     
                     oscillator.start(audioCtx.currentTime);
                     oscillator.stop(audioCtx.currentTime + 0.08);
-                } catch (e) {
-                    // 如果浏览器不支持就静默跳过
-                }
+                } catch (e) {}
             }
 
-            playBtn.addEventListener('click', function(e) {
-                // 播放音效
+            playBtn.addEventListener('click', function() {
                 playClickSound();
 
-                // 切换播放器展开/收起
                 if (!isPlaying) {
                     iframeWrapper.style.display = 'block';
                     btnLabel.textContent = '收起播放器';
