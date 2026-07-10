@@ -25,6 +25,24 @@
             font-weight: 400;
             position: relative;
         }
+
+        /* ===== 背景噪点纹理 ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.008) 1px, transparent 1px),
+                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.006) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.005) 1px, transparent 1px),
+                radial-gradient(circle at 90% 20%, rgba(255,255,255,0.007) 1px, transparent 1px);
+            background-size: 200px 200px, 150px 150px, 180px 180px, 220px 220px;
+        }
         
         body::before {
             content: '';
@@ -87,22 +105,14 @@
             background: #060a0b;
         }
         
+        /* ===== 名字改成纯色灰白 ===== */
         .name {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 5px;
-            background: linear-gradient(135deg, #6a9a9f, #4a7a7f, #3a6a6f, #4a7a7f);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s ease-in-out infinite;
+            color: #8aa8ac;
             letter-spacing: 6px;
             opacity: 0.85;
-        }
-        
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
         
         .content {
@@ -179,7 +189,7 @@
             color: #8aa8ac;
         }
 
-        /* ===== 音乐卡片 ===== */
+        /* ===== 音乐卡片（内嵌播放器） ===== */
         .music-card {
             margin: 18px 0 14px 0;
             padding: 16px 20px 18px 20px;
@@ -215,12 +225,29 @@
             font-weight: 500;
         }
 
+        /* 内嵌播放器 iframe */
+        .music-iframe-wrapper {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .music-iframe-wrapper iframe {
+            width: 100%;
+            height: 86px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(10, 18, 20, 0.6);
+        }
+
+        /* 按键音效按钮（取代之前的跳转按钮） */
         .play-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 16px 0;
+            padding: 14px 0;
             background: rgba(60, 110, 120, 0.06);
             border: 1px solid rgba(60, 110, 120, 0.08);
             border-radius: 16px;
@@ -235,6 +262,8 @@
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
             text-decoration: none;
             gap: 10px;
+            margin-bottom: 12px;
+            user-select: none;
         }
 
         .play-btn:hover {
@@ -301,18 +330,21 @@
                 border-radius: 18px;
             }
             .play-btn {
-                padding: 14px 0;
+                padding: 12px 0;
                 font-size: 0.95rem;
                 border-radius: 14px;
             }
             .diary-days {
                 font-size: 0.7rem;
             }
+            .music-iframe-wrapper iframe {
+                height: 76px;
+            }
         }
 
         @media (max-width: 400px) {
             .play-btn {
-                padding: 12px 0;
+                padding: 10px 0;
                 font-size: 0.88rem;
             }
             .music-card {
@@ -320,6 +352,9 @@
             }
             .name {
                 letter-spacing: 3px;
+            }
+            .music-iframe-wrapper iframe {
+                height: 66px;
             }
         }
 
@@ -366,19 +401,27 @@
             </div>
         </div>
         
-        <!-- 音乐卡片 -->
+        <!-- ===== 音乐卡片：内嵌播放器 + 按键音效 ===== -->
         <div class="music-card">
             <div class="diary-days-row">
                 <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
             </div>
-            <a href="https://music.163.com/#/search/m/?s=%E9%9B%A8%E7%88%B1&type=1" 
-               target="_blank" 
-               class="play-btn" 
-               id="musicPlayBtn">
+
+            <!-- 播放按钮（带音效） -->
+            <div class="play-btn" id="playBtn">
                 <span class="icon">🎧</span>
-                <span class="label">点此收听我的日记</span>
+                <span class="label" id="playBtnLabel">点此收听我的日记</span>
                 <span class="sub">♫</span>
-            </a>
+            </div>
+
+            <!-- 内嵌网易云播放器（雨爱） -->
+            <div class="music-iframe-wrapper" id="musicIframeWrapper" style="display: none;">
+                <iframe 
+                    src="https://music.163.com/outchain/player?type=2&id=188659&auto=0&height=66" 
+                    allow="autoplay; encrypted-media">
+                </iframe>
+            </div>
+
             <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
         </div>
 
@@ -392,6 +435,7 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ===== 头像容错 =====
             const images = document.querySelectorAll('.avatar');
             images.forEach(img => {
                 img.onerror = function() {
@@ -399,6 +443,7 @@
                 };
             });
 
+            // ===== 和伊索卡尔天数 =====
             function updateDiaryDays() {
                 const startDate = new Date(2022, 5, 25);
                 const today = new Date();
@@ -414,9 +459,9 @@
                     displayEl.innerHTML = `💙 和伊索卡尔已经 <strong>${days}</strong> 天`;
                 }
             }
-
             updateDiaryDays();
 
+            // ===== 访客计数 =====
             const visitorEl = document.getElementById('visitorDisplay');
             if (visitorEl) {
                 let count = localStorage.getItem('visitorCount');
@@ -428,6 +473,51 @@
                 localStorage.setItem('visitorCount', count);
                 visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
             }
+
+            // ===== 按键音效 + 播放器展开 =====
+            const playBtn = document.getElementById('playBtn');
+            const iframeWrapper = document.getElementById('musicIframeWrapper');
+            const btnLabel = document.getElementById('playBtnLabel');
+            let isPlaying = false;
+
+            // 生成极简音效（Web Audio）
+            function playClickSound() {
+                try {
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.frequency.value = 800;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.08);
+                } catch (e) {
+                    // 如果浏览器不支持就静默跳过
+                }
+            }
+
+            playBtn.addEventListener('click', function(e) {
+                // 播放音效
+                playClickSound();
+
+                // 切换播放器展开/收起
+                if (!isPlaying) {
+                    iframeWrapper.style.display = 'block';
+                    btnLabel.textContent = '收起播放器';
+                    isPlaying = true;
+                } else {
+                    iframeWrapper.style.display = 'none';
+                    btnLabel.textContent = '点此收听我的日记';
+                    isPlaying = false;
+                }
+            });
         });
     </script>
 </body>
