@@ -112,6 +112,153 @@
             letter-spacing: 6px;
             opacity: 0.85;
         }
+
+        /* ===== 左上角进度条 ===== */
+        .progress-corner {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(10, 18, 20, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(60, 110, 120, 0.06);
+            border-radius: 30px;
+            padding: 6px 14px 6px 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            user-select: none;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .progress-corner .label {
+            font-size: 0.6rem;
+            color: rgba(80, 130, 140, 0.25);
+            letter-spacing: 1px;
+            font-weight: 300;
+            white-space: nowrap;
+        }
+
+        .progress-corner .bar-wrap {
+            width: 60px;
+            height: 3px;
+            background: rgba(60, 110, 120, 0.10);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-corner .bar-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, rgba(60, 130, 140, 0.20), rgba(100, 170, 180, 0.30));
+            transition: width 0.8s ease;
+        }
+
+        .progress-corner .pct {
+            font-size: 0.65rem;
+            color: rgba(80, 130, 140, 0.30);
+            font-weight: 300;
+            min-width: 32px;
+            text-align: right;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 右下角天气 ===== */
+        .weather-corner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(10, 18, 20, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(60, 110, 120, 0.06);
+            border-radius: 30px;
+            padding: 6px 16px 6px 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: rgba(80, 130, 140, 0.35);
+            letter-spacing: 0.5px;
+            user-select: none;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .weather-corner .w-icon {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        .weather-corner .w-temp {
+            font-weight: 300;
+            color: rgba(80, 130, 140, 0.30);
+        }
+
+        .weather-corner .w-city {
+            font-size: 0.55rem;
+            color: rgba(80, 130, 140, 0.15);
+            max-width: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 小屏适配 */
+        @media (max-width: 600px) {
+            .progress-corner {
+                top: 12px;
+                left: 12px;
+                padding: 5px 10px 5px 10px;
+                gap: 6px;
+            }
+            .progress-corner .bar-wrap {
+                width: 40px;
+            }
+            .progress-corner .label {
+                font-size: 0.5rem;
+            }
+            .progress-corner .pct {
+                font-size: 0.55rem;
+                min-width: 26px;
+            }
+            .weather-corner {
+                bottom: 14px;
+                right: 14px;
+                padding: 4px 12px 4px 10px;
+                font-size: 0.65rem;
+                gap: 5px;
+            }
+            .weather-corner .w-icon {
+                font-size: 0.75rem;
+            }
+            .weather-corner .w-city {
+                max-width: 30px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .progress-corner .bar-wrap {
+                width: 30px;
+            }
+            .progress-corner .pct {
+                font-size: 0.5rem;
+                min-width: 22px;
+            }
+            .weather-corner {
+                font-size: 0.55rem;
+                padding: 3px 10px 3px 8px;
+            }
+            .weather-corner .w-icon {
+                font-size: 0.65rem;
+            }
+        }
         
         .content {
             margin-bottom: 25px;
@@ -412,6 +559,23 @@
     </style>
 </head>
 <body>
+
+    <!-- ===== 左上角：进度条 ===== -->
+    <div class="progress-corner" id="progressCorner">
+        <span class="label">今天</span>
+        <div class="bar-wrap">
+            <div class="bar-fill" id="progressFill"></div>
+        </div>
+        <span class="pct" id="progressPct">0%</span>
+    </div>
+
+    <!-- ===== 右下角：天气 ===== -->
+    <div class="weather-corner" id="weatherCorner">
+        <span class="w-icon" id="weatherIcon">🌤</span>
+        <span class="w-temp" id="weatherTemp">--°</span>
+        <span class="w-city" id="weatherCity">--</span>
+    </div>
+
     <div class="header">
         <div class="avatar-wrapper">
             <img src="FCB9A83EE73B5F22E6DDE0F1280A06AC.jpg" alt="头像" class="avatar" onerror="this.style.display='none'">
@@ -474,6 +638,7 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ===== 头像容错 =====
             const images = document.querySelectorAll('.avatar');
             images.forEach(img => {
                 img.onerror = function() {
@@ -481,6 +646,7 @@
                 };
             });
 
+            // ===== 天数 =====
             function updateDiaryDays() {
                 const startDate = new Date(2022, 5, 25);
                 const today = new Date();
@@ -498,6 +664,7 @@
             }
             updateDiaryDays();
 
+            // ===== 访客计数 =====
             const visitorEl = document.getElementById('visitorDisplay');
             if (visitorEl) {
                 let count = localStorage.getItem('visitorCount');
@@ -510,6 +677,75 @@
                 visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
             }
 
+            // ===== 进度条（左上角） =====
+            function updateProgress() {
+                const now = new Date();
+                const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+                const elapsed = now.getTime() - startOfDay.getTime();
+                const total = endOfDay.getTime() - startOfDay.getTime();
+                const pct = Math.min(100, (elapsed / total) * 100);
+                
+                const fill = document.getElementById('progressFill');
+                const pctText = document.getElementById('progressPct');
+                if (fill) {
+                    fill.style.width = pct + '%';
+                }
+                if (pctText) {
+                    pctText.textContent = Math.round(pct) + '%';
+                }
+            }
+            updateProgress();
+            setInterval(updateProgress, 60000);
+
+            // ===== 天气（右下角） =====
+            function getWeather() {
+                // 使用 wttr.in 免费天气 API（自动定位，返回 JSON）
+                fetch('https://wttr.in?format=j1&lang=zh')
+                    .then(res => {
+                        if (!res.ok) throw new Error('Weather API error');
+                        return res.json();
+                    })
+                    .then(data => {
+                        try {
+                            const current = data.current_condition[0];
+                            const temp = current.temp_C;
+                            const weatherCode = current.weatherCode;
+                            const city = data.nearest_area?.[0]?.areaName?.[0]?.value || '--';
+
+                            // 天气图标映射
+                            const iconMap = {
+                                '113': '☀️', '116': '🌤', '119': '⛅', '122': '☁️',
+                                '143': '🌫', '176': '🌦', '179': '🌨', '182': '🌧',
+                                '185': '🌧', '200': '⛈', '227': '❄️', '230': '❄️',
+                                '248': '🌫', '260': '🌫', '263': '🌦', '266': '🌧',
+                                '281': '🌧', '284': '🌧', '293': '🌦', '296': '🌧',
+                                '299': '🌧', '302': '🌧', '305': '🌧', '308': '🌧',
+                                '311': '🌧', '314': '🌧', '317': '🌧', '320': '🌨',
+                                '323': '🌨', '326': '🌨', '329': '🌨', '332': '❄️',
+                                '335': '❄️', '338': '❄️', '350': '🌧', '353': '🌦',
+                                '356': '🌧', '359': '🌧', '362': '🌧', '365': '🌧',
+                                '368': '🌨', '371': '🌨', '374': '🌧', '377': '🌧',
+                                '386': '⛈', '389': '⛈', '392': '🌨', '395': '❄️'
+                            };
+                            const icon = iconMap[weatherCode] || '🌤';
+
+                            document.getElementById('weatherIcon').textContent = icon;
+                            document.getElementById('weatherTemp').textContent = temp + '°';
+                            document.getElementById('weatherCity').textContent = city.length > 4 ? city.slice(0, 4) : city;
+                        } catch (e) {
+                            // 解析失败静默处理
+                            document.getElementById('weatherTemp').textContent = '--°';
+                        }
+                    })
+                    .catch(() => {
+                        // API 失败静默处理
+                        document.getElementById('weatherTemp').textContent = '--°';
+                    });
+            }
+            getWeather();
+
+            // ===== 游戏卡片点击 =====
             const gameCard = document.getElementById('gameCard');
             const toastOverlay = document.getElementById('toastOverlay');
             const toastCloseBtn = document.getElementById('toastCloseBtn');
