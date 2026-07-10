@@ -67,7 +67,7 @@
             animation: glowSpin 6s ease-in-out infinite;
             z-index: -1;
             filter: blur(12px);
-            opacity: 0.15;
+            opacity: 0.08; /* 从0.15降到0.08，更弱 */
         }
         
         @keyframes glowSpin {
@@ -96,7 +96,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s ease-in-out infinite;
-            letter-spacing: 2px;
+            letter-spacing: 6px; /* 从2px改成6px，间距拉大 */
             opacity: 0.8;
         }
         
@@ -264,6 +264,17 @@
             margin-left: 2px;
         }
 
+        /* ===== 访客计数 ===== */
+        .visitor-count {
+            margin-top: 10px;
+            padding: 10px 0 4px 0;
+            font-size: 0.65rem;
+            color: rgba(70, 120, 130, 0.15);
+            text-align: center;
+            letter-spacing: 1.5px;
+            border-top: 1px solid rgba(50, 100, 110, 0.02);
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 12px;
@@ -274,6 +285,7 @@
             }
             .name {
                 font-size: 1.5rem;
+                letter-spacing: 4px;
             }
             .content {
                 padding: 16px;
@@ -306,6 +318,9 @@
             }
             .music-card {
                 padding: 12px 10px 14px 10px;
+            }
+            .name {
+                letter-spacing: 3px;
             }
         }
 
@@ -365,6 +380,8 @@
                 <span class="label">点此收听我的日记</span>
                 <span class="sub">♫</span>
             </a>
+            <!-- 访客计数：从3748开始，不包含自己 -->
+            <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
         </div>
 
         <div class="line">NG 小马宝莉 品客</div>
@@ -384,6 +401,7 @@
                 };
             });
 
+            // 和伊索卡尔天数
             function updateDiaryDays() {
                 const startDate = new Date(2022, 5, 25);
                 const today = new Date();
@@ -401,6 +419,20 @@
             }
 
             updateDiaryDays();
+
+            // ===== 访客计数：从3748开始 =====
+            const visitorEl = document.getElementById('visitorDisplay');
+            if (visitorEl) {
+                // 从 localStorage 读取，如果没有就初始化为3748
+                let count = localStorage.getItem('visitorCount');
+                if (count === null) {
+                    count = 3748;
+                } else {
+                    count = parseInt(count, 10) + 1;
+                }
+                localStorage.setItem('visitorCount', count);
+                visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
+            }
         });
     </script>
 </body>
