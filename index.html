@@ -25,6 +25,13 @@
             margin: 0 auto;
             font-weight: 400;
             position: relative;
+            opacity: 0;
+            animation: fadeInPage 1.5s ease forwards;
+        }
+
+        @keyframes fadeInPage {
+            0% { opacity: 0; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         body.light-mode {
@@ -986,7 +993,6 @@
             const toggleBtn = document.getElementById('themeToggle');
             let isLight = false;
 
-            // 检查本地存储
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light-mode');
                 isLight = true;
