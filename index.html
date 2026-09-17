@@ -2,9 +2,20 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>冷涩调老傻坤</title>
     <style>
+        :root {
+            --text-main: #7a8f93;
+            --text-strong: #8aa8ac;
+            --accent: 60, 110, 120;
+            --accent-warm: 80, 130, 140;
+            --gold: #c8a85a;
+            --bg-card: rgba(30, 70, 80, 0.02);
+            --bg-card-hover: rgba(60, 110, 120, 0.08);
+            --border-soft: rgba(60, 110, 120, 0.06);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,13 +23,26 @@
             font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        body,
+        .content,
+        .line,
+        .theme-toggle,
+        .game-card,
+        .friend-list .tag,
+        .toast-box,
+        .toast-box .btn-close,
+        .avatar,
+        .progress-corner,
+        .weather-corner {
             transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         body {
             min-height: 100vh;
             background: radial-gradient(ellipse at 50% 0%, #0a1214 0%, #060a0b 50%, #000000 100%);
-            color: #7a8f93;
+            color: var(--text-main);
             line-height: 1.7;
             padding: 20px;
             max-width: 800px;
@@ -35,166 +59,14 @@
         }
 
         body.light-mode {
+            --text-main: #5a6f73;
+            --text-strong: #4a6a6f;
+            --accent: 160, 180, 180;
+            --accent-warm: 100, 130, 140;
+            --bg-card: rgba(255, 255, 255, 0.15);
+            --bg-card-hover: rgba(255, 255, 255, 0.25);
+            --border-soft: rgba(160, 180, 180, 0.10);
             background: radial-gradient(ellipse at 50% 0%, #f0f0ed 0%, #e6e6e3 50%, #d9d9d6 100%);
-            color: #5a6f73;
-        }
-
-        body.light-mode .name {
-            color: #4a6a6f;
-            opacity: 0.9;
-        }
-
-        body.light-mode .content {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(160, 180, 180, 0.15);
-        }
-
-        body.light-mode .line {
-            color: #5a6f73;
-            border-bottom-color: rgba(160, 180, 180, 0.08);
-        }
-
-        body.light-mode .line::before {
-            color: rgba(160, 180, 180, 0.2);
-        }
-
-        body.light-mode .friends-section {
-            background: rgba(255, 255, 255, 0.15);
-            border-left-color: rgba(160, 180, 180, 0.15);
-        }
-
-        body.light-mode .friends-title {
-            color: rgba(100, 130, 140, 0.4);
-        }
-
-        body.light-mode .friend-list {
-            color: #5a6f73;
-        }
-
-        body.light-mode .bold-deep {
-            color: #4a7a7f;
-        }
-
-        body.light-mode .friend-list .tag {
-            background: rgba(160, 180, 180, 0.08);
-            border-color: rgba(160, 180, 180, 0.06);
-            color: #5a6f73;
-        }
-
-        body.light-mode .friend-list .tag:hover {
-            background: rgba(160, 180, 180, 0.15);
-            border-color: rgba(160, 180, 180, 0.10);
-            color: #4a7a7f;
-        }
-
-        body.light-mode .game-card {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(160, 180, 180, 0.10);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-        }
-
-        body.light-mode .game-card:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(160, 180, 180, 0.15);
-        }
-
-        body.light-mode .game-card .label {
-            color: #5a6f73;
-        }
-
-        body.light-mode .game-card .sub {
-            color: rgba(100, 130, 140, 0.2);
-        }
-
-        body.light-mode .diary-days {
-            color: rgba(100, 130, 140, 0.4);
-        }
-
-        body.light-mode .diary-days strong {
-            color: rgba(100, 130, 140, 0.55);
-        }
-
-        body.light-mode .visitor-count {
-            color: rgba(100, 130, 140, 0.2);
-            border-top-color: rgba(160, 180, 180, 0.06);
-        }
-
-        body.light-mode .footer {
-            color: rgba(100, 130, 140, 0.15);
-            border-top-color: rgba(160, 180, 180, 0.06);
-        }
-
-        body.light-mode .progress-corner {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(160, 180, 180, 0.10);
-        }
-
-        body.light-mode .progress-corner .label {
-            color: rgba(100, 130, 140, 0.3);
-        }
-
-        body.light-mode .progress-corner .bar-wrap {
-            background: rgba(160, 180, 180, 0.15);
-        }
-
-        body.light-mode .progress-corner .bar-fill {
-            background: linear-gradient(90deg, rgba(180, 150, 80, 0.3), rgba(200, 170, 100, 0.4));
-        }
-
-        body.light-mode .progress-corner .pct {
-            color: rgba(100, 130, 140, 0.35);
-        }
-
-        body.light-mode .weather-corner {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(160, 180, 180, 0.08);
-            color: rgba(100, 130, 140, 0.4);
-        }
-
-        body.light-mode .weather-corner .w-temp {
-            color: rgba(100, 130, 140, 0.35);
-        }
-
-        body.light-mode .weather-corner .w-city {
-            color: rgba(100, 130, 140, 0.2);
-        }
-
-        body.light-mode .toast-box {
-            background: rgba(240, 240, 237, 0.95);
-            border-color: rgba(160, 180, 180, 0.15);
-        }
-
-        body.light-mode .toast-box .title {
-            color: #4a6a6f;
-        }
-
-        body.light-mode .toast-box .msg {
-            color: rgba(100, 130, 140, 0.5);
-        }
-
-        body.light-mode .toast-box .btn-close {
-            background: rgba(160, 180, 180, 0.08);
-            border-color: rgba(160, 180, 180, 0.10);
-            color: #5a6f73;
-        }
-
-        body.light-mode .toast-box .btn-close:hover {
-            background: rgba(160, 180, 180, 0.15);
-            border-color: rgba(160, 180, 180, 0.15);
-            color: #4a6a6f;
-        }
-
-        body.light-mode .avatar {
-            border-color: rgba(160, 180, 180, 0.15);
-            background: #e0e0dd;
-        }
-
-        body.light-mode .avatar-wrapper::before {
-            opacity: 0.05;
-        }
-
-        body.light-mode .header {
-            border-bottom-color: rgba(160, 180, 180, 0.08);
         }
 
         body::after {
@@ -206,7 +78,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 20% 30%, rgba(255,255,255,0.008) 1px, transparent 1px),
                 radial-gradient(circle at 70% 60%, rgba(255,255,255,0.006) 1px, transparent 1px),
                 radial-gradient(circle at 40% 80%, rgba(255,255,255,0.005) 1px, transparent 1px),
@@ -215,13 +87,13 @@
         }
 
         body.light-mode::after {
-            background-image: 
+            background-image:
                 radial-gradient(circle at 20% 30%, rgba(0,0,0,0.015) 1px, transparent 1px),
                 radial-gradient(circle at 70% 60%, rgba(0,0,0,0.010) 1px, transparent 1px),
                 radial-gradient(circle at 40% 80%, rgba(0,0,0,0.008) 1px, transparent 1px),
                 radial-gradient(circle at 90% 20%, rgba(0,0,0,0.012) 1px, transparent 1px);
         }
-        
+
         body::before {
             content: '';
             position: fixed;
@@ -239,25 +111,25 @@
             background: radial-gradient(ellipse at 70% 20%, rgba(200, 180, 160, 0.03) 0%, transparent 50%),
                         radial-gradient(ellipse at 30% 80%, rgba(180, 160, 140, 0.02) 0%, transparent 50%);
         }
-        
+
         .header, .content, .footer {
             position: relative;
             z-index: 1;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 35px;
             padding-bottom: 25px;
-            border-bottom: 1px solid rgba(60, 110, 120, 0.08);
+            border-bottom: 1px solid rgba(var(--accent), 0.08);
         }
-        
+
         .avatar-wrapper {
             position: relative;
             display: inline-block;
             margin-bottom: 15px;
         }
-        
+
         .avatar-wrapper::before {
             content: '';
             position: absolute;
@@ -270,29 +142,29 @@
             filter: blur(12px);
             opacity: 0.10;
         }
-        
+
         @keyframes glowSpin {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-        
+
         .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid rgba(60, 110, 120, 0.15);
+            border: 1px solid rgba(var(--accent), 0.15);
             display: block;
             margin: 0 auto;
             position: relative;
             background: #060a0b;
         }
-        
+
         .name {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 5px;
-            color: #8aa8ac;
+            color: var(--text-strong);
             letter-spacing: 6px;
             opacity: 0.85;
         }
@@ -306,14 +178,13 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 1px solid rgba(60, 110, 120, 0.08);
+            border: 1px solid rgba(var(--accent), 0.08);
             background: rgba(10, 18, 20, 0.35);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            color: #c8a85a;
+            color: var(--gold);
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -335,8 +206,6 @@
 
         body.light-mode .theme-toggle {
             background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(160, 180, 180, 0.10);
-            color: #c8a85a;
         }
 
         body.light-mode .theme-toggle:hover {
@@ -357,18 +226,21 @@
             background: rgba(10, 18, 20, 0.55);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(60, 110, 120, 0.06);
+            border: 1px solid rgba(var(--accent), 0.06);
             border-radius: 30px;
             padding: 6px 14px 6px 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             user-select: none;
             pointer-events: none;
-            transition: opacity 0.3s;
+        }
+
+        body.light-mode .progress-corner {
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .progress-corner .label {
             font-size: 0.6rem;
-            color: rgba(80, 130, 140, 0.25);
+            color: rgba(var(--accent-warm), 0.25);
             letter-spacing: 1px;
             font-weight: 300;
             white-space: nowrap;
@@ -377,7 +249,7 @@
         .progress-corner .bar-wrap {
             width: 60px;
             height: 3px;
-            background: rgba(60, 110, 120, 0.10);
+            background: rgba(var(--accent), 0.10);
             border-radius: 4px;
             overflow: hidden;
         }
@@ -386,13 +258,17 @@
             height: 100%;
             width: 0%;
             border-radius: 4px;
-            background: linear-gradient(90deg, rgba(60, 130, 140, 0.20), rgba(100, 170, 180, 0.30));
+            background: linear-gradient(90deg, rgba(var(--accent), 0.20), rgba(100, 170, 180, 0.30));
             transition: width 0.8s ease;
+        }
+
+        body.light-mode .progress-corner .bar-fill {
+            background: linear-gradient(90deg, rgba(180, 150, 80, 0.3), rgba(200, 170, 100, 0.4));
         }
 
         .progress-corner .pct {
             font-size: 0.65rem;
-            color: rgba(80, 130, 140, 0.30);
+            color: rgba(var(--accent-warm), 0.30);
             font-weight: 300;
             min-width: 32px;
             text-align: right;
@@ -408,7 +284,7 @@
             background: rgba(10, 18, 20, 0.45);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(60, 110, 120, 0.06);
+            border: 1px solid rgba(var(--accent), 0.06);
             border-radius: 30px;
             padding: 6px 16px 6px 14px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -416,12 +292,15 @@
             align-items: center;
             gap: 8px;
             font-size: 0.75rem;
-            color: rgba(80, 130, 140, 0.35);
+            color: rgba(var(--accent-warm), 0.35);
             letter-spacing: 0.5px;
             user-select: none;
             pointer-events: none;
-            transition: opacity 0.3s;
             white-space: nowrap;
+        }
+
+        body.light-mode .weather-corner {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .weather-corner .w-icon {
@@ -431,12 +310,12 @@
 
         .weather-corner .w-temp {
             font-weight: 300;
-            color: rgba(80, 130, 140, 0.30);
+            color: rgba(var(--accent-warm), 0.30);
         }
 
         .weather-corner .w-city {
             font-size: 0.55rem;
-            color: rgba(80, 130, 140, 0.15);
+            color: rgba(var(--accent-warm), 0.15);
             max-width: 40px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -504,79 +383,78 @@
                 font-size: 0.65rem;
             }
         }
-        
+
         .content {
             margin-bottom: 25px;
             padding: 20px 24px;
-            background: rgba(30, 70, 80, 0.02);
+            background: var(--bg-card);
             border-radius: 16px;
-            border: 1px solid rgba(60, 110, 120, 0.06);
+            border: 1px solid var(--border-soft);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
-        
+
         .line {
             margin-bottom: 14px;
             font-size: 0.98rem;
             padding: 4px 0;
-            border-bottom: 1px solid rgba(60, 110, 120, 0.04);
-            color: #7a8f93;
+            border-bottom: 1px solid rgba(var(--accent), 0.04);
+            color: var(--text-main);
         }
-        
+
         .line::before {
             content: '◆';
-            color: rgba(60, 110, 120, 0.15);
+            color: rgba(var(--accent), 0.15);
             font-size: 0.5rem;
             margin-right: 8px;
         }
-        
+
         .friends-section {
             margin-top: 10px;
             margin-bottom: 10px;
             padding: 16px 20px;
-            background: rgba(30, 70, 80, 0.03);
+            background: var(--bg-card);
             border-radius: 12px;
-            border-left: 2px solid rgba(60, 110, 120, 0.10);
+            border-left: 2px solid rgba(var(--accent), 0.10);
         }
-        
+
         .friends-title {
             font-size: 0.7rem;
             margin-bottom: 8px;
-            color: rgba(80, 130, 140, 0.35);
+            color: rgba(var(--accent-warm), 0.35);
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-        
+
         .friend-list {
             font-size: 1rem;
             line-height: 2.2;
             letter-spacing: 0.5px;
-            color: #7a8f93;
+            color: var(--text-main);
         }
 
         .bold-deep {
             font-weight: 700;
-            color: #8aa8ac;
+            color: var(--text-strong);
         }
 
         .friend-list .tag {
             display: inline-block;
-            background: rgba(60, 110, 120, 0.05);
+            background: rgba(var(--accent), 0.05);
             padding: 2px 14px;
             border-radius: 20px;
             margin: 2px 6px 2px 0;
             font-size: 0.9rem;
-            border: 1px solid rgba(60, 110, 120, 0.05);
-            transition: all 0.2s;
-            color: #7a8f93;
+            border: 1px solid rgba(var(--accent), 0.05);
+            color: var(--text-main);
         }
-        
+
         .friend-list .tag:hover {
-            background: rgba(60, 110, 120, 0.08);
-            border-color: rgba(60, 110, 120, 0.08);
+            background: rgba(var(--accent), 0.08);
+            border-color: rgba(var(--accent), 0.08);
             transform: translateY(-1px);
-            color: #8aa8ac;
+            color: var(--text-strong);
         }
 
         .diary-days-row {
@@ -585,27 +463,27 @@
             justify-content: flex-end;
             margin-bottom: 10px;
             padding-bottom: 6px;
-            border-bottom: 1px solid rgba(60, 110, 120, 0.05);
+            border-bottom: 1px solid rgba(var(--accent), 0.05);
         }
 
         .diary-days {
             font-size: 0.8rem;
-            color: rgba(80, 130, 140, 0.35);
+            color: rgba(var(--accent-warm), 0.35);
             font-weight: 300;
             letter-spacing: 0.5px;
         }
 
         .diary-days strong {
-            color: rgba(80, 130, 140, 0.50);
+            color: rgba(var(--accent-warm), 0.50);
             font-weight: 500;
         }
 
         .game-card {
             margin: 14px 0 6px 0;
             padding: 16px 20px;
-            background: rgba(30, 70, 80, 0.03);
+            background: var(--bg-card);
             border-radius: 20px;
-            border: 1px solid rgba(60, 110, 120, 0.08);
+            border: 1px solid var(--border-soft);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
@@ -614,20 +492,19 @@
             box-sizing: border-box;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s ease;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
 
         .game-card:hover {
-            background: rgba(60, 110, 120, 0.08);
-            border-color: rgba(60, 110, 120, 0.12);
+            background: var(--bg-card-hover);
+            border-color: rgba(var(--accent), 0.12);
             transform: scale(1.01);
         }
 
         .game-card:active {
             transform: scale(0.97);
-            background: rgba(60, 110, 120, 0.04);
+            background: rgba(var(--accent), 0.04);
         }
 
         .game-card .icon {
@@ -637,14 +514,14 @@
 
         .game-card .label {
             font-size: 0.95rem;
-            color: #7a8f93;
+            color: var(--text-main);
             letter-spacing: 1.5px;
             font-weight: 300;
         }
 
         .game-card .sub {
             font-size: 0.6rem;
-            color: rgba(80, 130, 140, 0.15);
+            color: rgba(var(--accent-warm), 0.15);
             letter-spacing: 1px;
             margin-top: 4px;
             display: block;
@@ -682,7 +559,7 @@
 
         .toast-box {
             background: rgba(10, 18, 20, 0.95);
-            border: 1px solid rgba(60, 110, 120, 0.15);
+            border: 1px solid rgba(var(--accent), 0.15);
             border-radius: 24px;
             padding: 32px 36px 28px 36px;
             max-width: 340px;
@@ -690,6 +567,10 @@
             text-align: center;
             box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
             animation: scaleIn 0.3s ease;
+        }
+
+        body.light-mode .toast-box {
+            background: rgba(240, 240, 237, 0.95);
         }
 
         .toast-box .emoji {
@@ -700,7 +581,7 @@
 
         .toast-box .title {
             font-size: 1.1rem;
-            color: #8aa8ac;
+            color: var(--text-strong);
             letter-spacing: 1px;
             font-weight: 400;
             margin-bottom: 6px;
@@ -708,39 +589,38 @@
 
         .toast-box .msg {
             font-size: 0.85rem;
-            color: rgba(80, 130, 140, 0.4);
+            color: rgba(var(--accent-warm), 0.4);
             letter-spacing: 0.5px;
             line-height: 1.6;
             margin-bottom: 18px;
         }
 
         .toast-box .btn-close {
-            background: rgba(60, 110, 120, 0.08);
-            border: 1px solid rgba(60, 110, 120, 0.10);
+            background: rgba(var(--accent), 0.08);
+            border: 1px solid rgba(var(--accent), 0.10);
             border-radius: 12px;
             padding: 10px 32px;
-            color: #7a8f93;
+            color: var(--text-main);
             font-size: 0.9rem;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.2s;
             font-weight: 300;
         }
 
         .toast-box .btn-close:hover {
-            background: rgba(60, 110, 120, 0.12);
-            border-color: rgba(60, 110, 120, 0.15);
-            color: #8aa8ac;
+            background: rgba(var(--accent), 0.12);
+            border-color: rgba(var(--accent), 0.15);
+            color: var(--text-strong);
         }
 
         .visitor-count {
             margin-top: 10px;
             padding: 10px 0 4px 0;
             font-size: 0.65rem;
-            color: rgba(80, 130, 140, 0.18);
+            color: rgba(var(--accent-warm), 0.18);
             text-align: center;
             letter-spacing: 1.5px;
-            border-top: 1px solid rgba(60, 110, 120, 0.04);
+            border-top: 1px solid rgba(var(--accent), 0.04);
         }
 
         @media (max-width: 600px) {
@@ -794,9 +674,9 @@
         .footer {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(60, 110, 120, 0.05);
+            border-top: 1px solid rgba(var(--accent), 0.05);
             font-size: 0.75rem;
-            color: rgba(80, 130, 140, 0.12);
+            color: rgba(var(--accent-warm), 0.12);
             text-align: center;
             font-weight: 300;
             letter-spacing: 2px;
@@ -805,10 +685,8 @@
 </head>
 <body>
 
-    <!-- ===== 右上角：切换按钮 ===== -->
     <button class="theme-toggle" id="themeToggle" aria-label="切换黑白模式">✦</button>
 
-    <!-- ===== 左上角：进度条 ===== -->
     <div class="progress-corner" id="progressCorner">
         <span class="label">今天</span>
         <div class="bar-wrap">
@@ -817,7 +695,6 @@
         <span class="pct" id="progressPct">0%</span>
     </div>
 
-    <!-- ===== 右下角：天气 ===== -->
     <div class="weather-corner" id="weatherCorner">
         <span class="w-icon" id="weatherIcon">🌤</span>
         <span class="w-temp" id="weatherTemp">--°</span>
@@ -826,17 +703,17 @@
 
     <div class="header">
         <div class="avatar-wrapper">
-            <img src="FCB9A83EE73B5F22E6DDE0F1280A06AC.jpg" alt="头像" class="avatar" onerror="this.style.display='none'">
+            <img src="FCB9A83EE73B5F22E6DDE0F1280A06AC.jpg" alt="头像" class="avatar">
         </div>
         <div class="name">=冷涩调/兔子</div>
     </div>
-    
+
     <div class="content">
         <div class="line">只在意 @伊索卡尔 @团羽</div>
         <div class="line">入殓师爱梦 列有认可加我你死妈 被我看到你发相关直接撕</div>
         <div class="line">号脆刚别 触雷v10 且有mha属 介意直删</div>
         <div class="line">恶俗b 朋友圈废话多</div>
-        
+
         <div class="friends-section">
             <div class="friends-title">你们是我最爱的人</div>
             <div class="friend-list bold-deep" style="margin-top: 0; margin-bottom: 2px;">
@@ -855,7 +732,7 @@
 
         <div class="game-card" id="gameCard">
             <div>
-                <span class="icon">🌼</span>
+                <span class="icon">🥴</span>
                 <span class="label">第五人格 · 入殓师</span>
                 <span class="sub">点击开启游戏 →</span>
             </div>
@@ -865,12 +742,12 @@
             <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
         </div>
 
-        <div class="visitor-count" id="visitorDisplay">✦ 已有 3,748 人看过我</div>
+        <div class="visitor-count" id="visitorDisplay">✦ 已有 0 人看过我</div>
 
         <div class="line" style="margin-top: 14px;">NG 小马宝莉 品客</div>
         <div class="line">加我全补</div>
     </div>
-    
+
     <div class="footer">
         最后更新: 2026年7月2日
     </div>
@@ -883,209 +760,198 @@
             <button class="btn-close" id="toastCloseBtn">知道了</button>
         </div>
     </div>
-    
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // ===== 头像容错 =====
-            const images = document.querySelectorAll('.avatar');
-            images.forEach(img => {
-                img.onerror = function() {
-                    this.style.display = 'none';
-                };
-            });
+        // ===== 安全读写 localStorage =====
+        function safeGet(key) {
+            try { return localStorage.getItem(key); } catch (e) { return null; }
+        }
+        function safeSet(key, value) {
+            try { localStorage.setItem(key, value); } catch (e) {}
+        }
 
-            // ===== 天数 =====
-            function updateDiaryDays() {
-                const startDate = new Date(2022, 5, 25);
-                const today = new Date();
-                const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-                const now = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                
-                const diffTime = now.getTime() - start.getTime();
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                
-                const displayEl = document.getElementById('diaryDaysDisplay');
-                if (displayEl) {
-                    const days = diffDays >= 0 ? diffDays : 0;
-                    displayEl.innerHTML = `💙 和伊索卡尔已经 <strong>${days}</strong> 天`;
-                }
+        // ===== 头像容错（只用 JS 一处，去掉内联） =====
+        document.querySelectorAll('.avatar').forEach(img => {
+            img.onerror = function () {
+                this.style.display = 'none';
+            };
+        });
+
+        // ===== 天数 =====
+        const ANNIVERSARY = new Date(2022, 5, 25); // 2022-06-25
+        function updateDiaryDays() {
+            const now = new Date();
+            const start = new Date(ANNIVERSARY.getFullYear(), ANNIVERSARY.getMonth(), ANNIVERSARY.getDate());
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const diffDays = Math.floor((today - start) / 86400000);
+            const days = diffDays >= 0 ? diffDays : 0;
+            const el = document.getElementById('diaryDaysDisplay');
+            if (el) {
+                el.innerHTML = `💙 和伊索卡尔已经 <strong>${days}</strong> 天`;
             }
-            updateDiaryDays();
+        }
+        updateDiaryDays();
 
-            // ===== 访客计数 =====
-            const visitorEl = document.getElementById('visitorDisplay');
-            if (visitorEl) {
-                let count = localStorage.getItem('visitorCount');
-                if (count === null) {
-                    count = 3748;
-                } else {
-                    count = parseInt(count, 10) + 1;
-                }
-                localStorage.setItem('visitorCount', count);
-                visitorEl.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
-            }
+        // ===== 访客计数（首次 +1，之后每次 +1） =====
+        (function initVisitor() {
+            const el = document.getElementById('visitorDisplay');
+            if (!el) return;
+            let count = parseInt(safeGet('visitorCount'), 10);
+            if (isNaN(count)) count = 3748;
+            count += 1;
+            safeSet('visitorCount', String(count));
+            el.textContent = `✦ 已有 ${count.toLocaleString()} 人看过我`;
+        })();
 
-            // ===== 进度条（左上角） =====
-            function updateProgress() {
-                const now = new Date();
-                const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-                const elapsed = now.getTime() - startOfDay.getTime();
-                const total = endOfDay.getTime() - startOfDay.getTime();
-                const pct = Math.min(100, (elapsed / total) * 100);
-                
-                const fill = document.getElementById('progressFill');
-                const pctText = document.getElementById('progressPct');
-                if (fill) {
-                    fill.style.width = pct + '%';
-                }
-                if (pctText) {
-                    pctText.textContent = Math.round(pct) + '%';
-                }
-            }
-            updateProgress();
-            setInterval(updateProgress, 60000);
+        // ===== 进度条 =====
+        function updateProgress() {
+            const now = new Date();
+            const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+            const elapsed = now - startOfDay;
+            const total = endOfDay - startOfDay;
+            const pct = Math.min(100, (elapsed / total) * 100);
+            const fill = document.getElementById('progressFill');
+            const pctText = document.getElementById('progressPct');
+            if (fill) fill.style.width = pct + '%';
+            if (pctText) pctText.textContent = Math.round(pct) + '%';
+        }
+        updateProgress();
+        setInterval(updateProgress, 60000);
 
-            // ===== 天气（右下角） =====
-            function getWeather() {
-                fetch('https://wttr.in?format=j1&lang=zh')
-                    .then(res => {
-                        if (!res.ok) throw new Error('Weather API error');
-                        return res.json();
-                    })
-                    .then(data => {
-                        try {
-                            const current = data.current_condition[0];
-                            const temp = current.temp_C;
-                            const weatherCode = current.weatherCode;
-                            const city = data.nearest_area?.[0]?.areaName?.[0]?.value || '--';
+        // ===== 天气 =====
+        const WEATHER_ICON_MAP = {
+            '113': '☀️', '116': '🌤', '119': '⛅', '122': '☁️',
+            '143': '🌫', '176': '🌦', '179': '🌨', '182': '🌧',
+            '185': '🌧', '200': '⛈', '227': '❄️', '230': '❄️',
+            '248': '🌫', '260': '🌫', '263': '🌦', '266': '🌧',
+            '281': '🌧', '284': '🌧', '293': '🌦', '296': '🌧',
+            '299': '🌧', '302': '🌧', '305': '🌧', '308': '🌧',
+            '311': '🌧', '314': '🌧', '317': '🌧', '320': '🌨',
+            '323': '🌨', '326': '🌨', '329': '🌨', '332': '❄️',
+            '335': '❄️', '338': '❄️', '350': '🌧', '353': '🌦',
+            '356': '🌧', '359': '🌧', '362': '🌧', '365': '🌧',
+            '368': '🌨', '371': '🌨', '374': '🌧', '377': '🌧',
+            '386': '⛈', '389': '⛈', '392': '🌨', '395': '❄️'
+        };
 
-                            const iconMap = {
-                                '113': '☀️', '116': '🌤', '119': '⛅', '122': '☁️',
-                                '143': '🌫', '176': '🌦', '179': '🌨', '182': '🌧',
-                                '185': '🌧', '200': '⛈', '227': '❄️', '230': '❄️',
-                                '248': '🌫', '260': '🌫', '263': '🌦', '266': '🌧',
-                                '281': '🌧', '284': '🌧', '293': '🌦', '296': '🌧',
-                                '299': '🌧', '302': '🌧', '305': '🌧', '308': '🌧',
-                                '311': '🌧', '314': '🌧', '317': '🌧', '320': '🌨',
-                                '323': '🌨', '326': '🌨', '329': '🌨', '332': '❄️',
-                                '335': '❄️', '338': '❄️', '350': '🌧', '353': '🌦',
-                                '356': '🌧', '359': '🌧', '362': '🌧', '365': '🌧',
-                                '368': '🌨', '371': '🌨', '374': '🌧', '377': '🌧',
-                                '386': '⛈', '389': '⛈', '392': '🌨', '395': '❄️'
-                            };
-                            const icon = iconMap[weatherCode] || '🌤';
+        function setWeatherUnavailable() {
+            document.getElementById('weatherIcon').textContent = '🌤';
+            document.getElementById('weatherTemp').textContent = '--°';
+            document.getElementById('weatherCity').textContent = '--';
+        }
 
-                            document.getElementById('weatherIcon').textContent = icon;
-                            document.getElementById('weatherTemp').textContent = temp + '°';
-                            document.getElementById('weatherCity').textContent = city.length > 4 ? city.slice(0, 4) : city;
-                        } catch (e) {
-                            document.getElementById('weatherTemp').textContent = '--°';
-                        }
-                    })
-                    .catch(() => {
-                        document.getElementById('weatherTemp').textContent = '--°';
-                    });
-            }
-            getWeather();
+        function getWeather() {
+            fetch('https://wttr.in?format=j1&lang=zh')
+                .then(res => {
+                    if (!res.ok) throw new Error('Weather API error');
+                    return res.json();
+                })
+                .then(data => {
+                    const current = data?.current_condition?.[0];
+                    if (!current) throw new Error('No current condition');
+                    const temp = current.temp_C;
+                    const code = current.weatherCode;
+                    const city = data?.nearest_area?.[0]?.areaName?.[0]?.value || '--';
+                    const icon = WEATHER_ICON_MAP[code] || '🌤';
 
-            // ===== 黑白切换 =====
-            const toggleBtn = document.getElementById('themeToggle');
-            let isLight = false;
+                    document.getElementById('weatherIcon').textContent = icon;
+                    document.getElementById('weatherTemp').textContent = temp + '°';
+                    document.getElementById('weatherCity').textContent = city.length > 4 ? city.slice(0, 4) : city;
+                })
+                .catch(setWeatherUnavailable);
+        }
+        getWeather();
+        setInterval(getWeather, 3600000); // 每小时刷新
 
-            if (localStorage.getItem('theme') === 'light') {
+        // ===== 黑白切换 =====
+        const toggleBtn = document.getElementById('themeToggle');
+        let isLight = safeGet('theme') === 'light';
+
+        function applyTheme() {
+            if (isLight) {
                 document.body.classList.add('light-mode');
-                isLight = true;
                 toggleBtn.textContent = '☀';
+            } else {
+                document.body.classList.remove('light-mode');
+                toggleBtn.textContent = '✦';
+            }
+        }
+        applyTheme();
+
+        toggleBtn.addEventListener('click', function () {
+            isLight = !isLight;
+            applyTheme();
+            safeSet('theme', isLight ? 'light' : 'dark');
+        });
+
+        // ===== 游戏卡片点击 =====
+        const gameCard = document.getElementById('gameCard');
+        const toastOverlay = document.getElementById('toastOverlay');
+        const toastCloseBtn = document.getElementById('toastCloseBtn');
+
+        function showToast() {
+            if (toastOverlay.classList.contains('show')) return;
+            toastOverlay.classList.add('show');
+        }
+        function hideToast() {
+            toastOverlay.classList.remove('show');
+        }
+
+        toastCloseBtn.addEventListener('click', hideToast);
+        toastOverlay.addEventListener('click', function (e) {
+            if (e.target === toastOverlay) hideToast();
+        });
+
+        gameCard.addEventListener('click', function () {
+            const appStoreUrl = 'https://apps.apple.com/cn/app/%E7%AC%AC%E4%BA%94%E4%BA%BA%E6%A0%BC/id1232556921';
+            const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.netease.idv.googleplay';
+            const iosScheme = 'identityv://';
+            const androidIntent = 'intent://#Intent;package=com.netease.idv.googleplay;scheme=identityv;end';
+
+            const ua = navigator.userAgent;
+            const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+            const isAndroid = /Android/.test(ua);
+
+            // 非移动端直接弹提示
+            if (!isIOS && !isAndroid) {
+                showToast();
+                return;
             }
 
-            toggleBtn.addEventListener('click', function() {
-                isLight = !isLight;
-                if (isLight) {
-                    document.body.classList.add('light-mode');
-                    toggleBtn.textContent = '☀';
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.body.classList.remove('light-mode');
-                    toggleBtn.textContent = '✦';
-                    localStorage.setItem('theme', 'dark');
-                }
-            });
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = isIOS ? iosScheme : androidIntent;
+            document.body.appendChild(iframe);
 
-            // ===== 游戏卡片点击 =====
-            const gameCard = document.getElementById('gameCard');
-            const toastOverlay = document.getElementById('toastOverlay');
-            const toastCloseBtn = document.getElementById('toastCloseBtn');
-            let hasShownToast = false;
+            let timeoutId = null;
+            let isAppOpened = false;
 
-            function showToast() {
-                if (hasShownToast) return;
-                hasShownToast = true;
-                toastOverlay.classList.add('show');
-            }
-
-            toastCloseBtn.addEventListener('click', function() {
-                toastOverlay.classList.remove('show');
-                hasShownToast = false;
-            });
-
-            toastOverlay.addEventListener('click', function(e) {
-                if (e.target === toastOverlay) {
-                    toastOverlay.classList.remove('show');
-                    hasShownToast = false;
-                }
-            });
-
-            gameCard.addEventListener('click', function() {
-                const iosScheme = 'identityv://';
-                const appStoreUrl = 'https://apps.apple.com/cn/app/%E7%AC%AC%E4%BA%94%E4%BA%BA%E6%A0%BC/id1232556921';
-                const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.netease.idv.googleplay';
-                const officialSite = 'https://idv.163.com/';
-
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                const isAndroid = /Android/.test(navigator.userAgent);
-
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = iosScheme;
-                document.body.appendChild(iframe);
-
-                let timeoutId = null;
-                let isAppOpened = false;
-
-                function onVisibilityChange() {
-                    if (document.hidden) {
-                        isAppOpened = true;
-                        clearTimeout(timeoutId);
-                        document.removeEventListener('visibilitychange', onVisibilityChange);
-                        if (iframe.parentNode) {
-                            document.body.removeChild(iframe);
-                        }
-                    }
-                }
-
-                document.addEventListener('visibilitychange', onVisibilityChange);
-
-                timeoutId = setTimeout(function() {
+            function onVisibilityChange() {
+                if (document.hidden) {
+                    isAppOpened = true;
+                    clearTimeout(timeoutId);
                     document.removeEventListener('visibilitychange', onVisibilityChange);
-                    if (iframe.parentNode) {
-                        document.body.removeChild(iframe);
-                    }
+                    if (iframe.parentNode) document.body.removeChild(iframe);
+                }
+            }
+            document.addEventListener('visibilitychange', onVisibilityChange);
 
-                    if (!isAppOpened) {
-                        showToast();
-                        setTimeout(function() {
-                            if (isIOS) {
-                                window.location.href = appStoreUrl;
-                            } else if (isAndroid) {
-                                window.location.href = googlePlayUrl;
-                            } else {
-                                window.location.href = officialSite;
-                            }
-                        }, 2000);
-                    }
-                }, 2500);
-            });
+            timeoutId = setTimeout(function () {
+                document.removeEventListener('visibilitychange', onVisibilityChange);
+                if (iframe.parentNode) document.body.removeChild(iframe);
+
+                if (!isAppOpened) {
+                    showToast();
+                    setTimeout(function () {
+                        if (isIOS) {
+                            window.location.href = appStoreUrl;
+                        } else if (isAndroid) {
+                            window.location.href = googlePlayUrl;
+                        }
+                    }, 2000);
+                }
+            }, 2500);
         });
     </script>
 </body>
