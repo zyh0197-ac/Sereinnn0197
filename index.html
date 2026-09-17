@@ -25,6 +25,80 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        ::selection {
+            background: rgba(var(--accent), 0.25);
+            color: var(--text-strong);
+        }
+        ::-moz-selection {
+            background: rgba(var(--accent), 0.25);
+            color: var(--text-strong);
+        }
+        body.light-mode ::selection {
+            background: rgba(160, 180, 180, 0.35);
+            color: #3a4f53;
+        }
+        body.light-mode ::-moz-selection {
+            background: rgba(160, 180, 180, 0.35);
+            color: #3a4f53;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(var(--accent), 0.20);
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(var(--accent), 0.35); }
+        body.light-mode ::-webkit-scrollbar-thumb { background: rgba(160, 180, 180, 0.35); }
+        body.light-mode ::-webkit-scrollbar-thumb:hover { background: rgba(160, 180, 180, 0.55); }
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(var(--accent), 0.20) transparent;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            body { cursor: none; }
+            a, button, .game-card, .theme-toggle, .arg-entry { cursor: none; }
+            .cursor-dot {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 26px;
+                height: 26px;
+                border: 1px solid rgba(var(--accent), 0.35);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s;
+                mix-blend-mode: screen;
+            }
+            .cursor-dot::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background: rgba(var(--accent), 0.7);
+                transform: translate(-50%, -50%);
+            }
+            .cursor-dot.hovering {
+                width: 40px;
+                height: 40px;
+                border-color: rgba(200, 180, 100, 0.5);
+                background: rgba(200, 180, 100, 0.05);
+            }
+            body.light-mode .cursor-dot {
+                mix-blend-mode: normal;
+                border-color: rgba(120, 150, 150, 0.5);
+            }
+            body.light-mode .cursor-dot::after {
+                background: rgba(120, 150, 150, 0.8);
+            }
+        }
+
         body,
         .content,
         .line,
@@ -110,6 +184,34 @@
         body.light-mode::before {
             background: radial-gradient(ellipse at 70% 20%, rgba(200, 180, 160, 0.03) 0%, transparent 50%),
                         radial-gradient(ellipse at 30% 80%, rgba(180, 160, 140, 0.02) 0%, transparent 50%);
+        }
+
+        .intro-particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 998;
+            overflow: hidden;
+        }
+        .intro-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(var(--accent), 0.5);
+            box-shadow: 0 0 6px rgba(var(--accent), 0.6);
+            opacity: 0;
+            animation: particleFall linear forwards;
+        }
+        body.light-mode .intro-particle {
+            background: rgba(160, 180, 180, 0.6);
+            box-shadow: 0 0 6px rgba(160, 180, 180, 0.7);
+        }
+        @keyframes particleFall {
+            0% { opacity: 0; transform: translateY(-10vh) translateX(0); }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(110vh) translateX(var(--drift, 0px)); }
         }
 
         .header, .content, .footer {
@@ -199,14 +301,9 @@
             box-shadow: 0 0 20px rgba(200, 180, 80, 0.06);
         }
 
-        .theme-toggle:active {
-            transform: scale(0.92);
-        }
+        .theme-toggle:active { transform: scale(0.92); }
 
-        body.light-mode .theme-toggle {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
+        body.light-mode .theme-toggle { background: rgba(255, 255, 255, 0.25); }
         body.light-mode .theme-toggle:hover {
             background: rgba(255, 255, 255, 0.35);
             border-color: rgba(200, 180, 100, 0.15);
@@ -232,9 +329,7 @@
             pointer-events: none;
         }
 
-        body.light-mode .progress-corner {
-            background: rgba(255, 255, 255, 0.4);
-        }
+        body.light-mode .progress-corner { background: rgba(255, 255, 255, 0.4); }
 
         .progress-corner .label {
             font-size: 0.6rem;
@@ -296,20 +391,13 @@
             white-space: nowrap;
         }
 
-        body.light-mode .weather-corner {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        body.light-mode .weather-corner { background: rgba(255, 255, 255, 0.3); }
 
-        .weather-corner .w-icon {
-            font-size: 0.9rem;
-            line-height: 1;
-        }
-
+        .weather-corner .w-icon { font-size: 0.9rem; line-height: 1; }
         .weather-corner .w-temp {
             font-weight: 300;
             color: rgba(var(--accent-warm), 0.30);
         }
-
         .weather-corner .w-city {
             font-size: 0.55rem;
             color: rgba(var(--accent-warm), 0.15);
@@ -319,66 +407,22 @@
         }
 
         @media (max-width: 600px) {
-            .theme-toggle {
-                top: 12px;
-                right: 12px;
-                width: 30px;
-                height: 30px;
-                font-size: 0.75rem;
-            }
-            .progress-corner {
-                top: 12px;
-                left: 12px;
-                padding: 5px 10px 5px 10px;
-                gap: 6px;
-            }
-            .progress-corner .bar-wrap {
-                width: 40px;
-            }
-            .progress-corner .label {
-                font-size: 0.5rem;
-            }
-            .progress-corner .pct {
-                font-size: 0.55rem;
-                min-width: 26px;
-            }
-            .weather-corner {
-                bottom: 14px;
-                right: 14px;
-                padding: 4px 12px 4px 10px;
-                font-size: 0.65rem;
-                gap: 5px;
-            }
-            .weather-corner .w-icon {
-                font-size: 0.75rem;
-            }
-            .weather-corner .w-city {
-                max-width: 30px;
-            }
+            .theme-toggle { top: 12px; right: 12px; width: 30px; height: 30px; font-size: 0.75rem; }
+            .progress-corner { top: 12px; left: 12px; padding: 5px 10px 5px 10px; gap: 6px; }
+            .progress-corner .bar-wrap { width: 40px; }
+            .progress-corner .label { font-size: 0.5rem; }
+            .progress-corner .pct { font-size: 0.55rem; min-width: 26px; }
+            .weather-corner { bottom: 14px; right: 14px; padding: 4px 12px 4px 10px; font-size: 0.65rem; gap: 5px; }
+            .weather-corner .w-icon { font-size: 0.75rem; }
+            .weather-corner .w-city { max-width: 30px; }
         }
 
         @media (max-width: 400px) {
-            .theme-toggle {
-                top: 10px;
-                right: 10px;
-                width: 26px;
-                height: 26px;
-                font-size: 0.65rem;
-            }
-            .progress-corner .bar-wrap {
-                width: 30px;
-            }
-            .progress-corner .pct {
-                font-size: 0.5rem;
-                min-width: 22px;
-            }
-            .weather-corner {
-                font-size: 0.55rem;
-                padding: 3px 10px 3px 8px;
-            }
-            .weather-corner .w-icon {
-                font-size: 0.65rem;
-            }
+            .theme-toggle { top: 10px; right: 10px; width: 26px; height: 26px; font-size: 0.65rem; }
+            .progress-corner .bar-wrap { width: 30px; }
+            .progress-corner .pct { font-size: 0.5rem; min-width: 22px; }
+            .weather-corner { font-size: 0.55rem; padding: 3px 10px 3px 8px; }
+            .weather-corner .w-icon { font-size: 0.65rem; }
         }
 
         .content {
@@ -504,18 +548,13 @@
             background: rgba(var(--accent), 0.04);
         }
 
-        .game-card .icon {
-            font-size: 1.3rem;
-            margin-right: 6px;
-        }
-
+        .game-card .icon { font-size: 1.3rem; margin-right: 6px; }
         .game-card .label {
             font-size: 0.95rem;
             color: var(--text-main);
             letter-spacing: 1.5px;
             font-weight: 300;
         }
-
         .game-card .sub {
             font-size: 0.6rem;
             color: rgba(var(--accent-warm), 0.15);
@@ -523,6 +562,34 @@
             margin-top: 4px;
             display: block;
         }
+
+        .now-section {
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border-radius: 14px;
+            border-left: 2px solid rgba(var(--accent), 0.10);
+        }
+        .now-title {
+            font-size: 0.65rem;
+            margin-bottom: 8px;
+            color: rgba(var(--accent-warm), 0.35);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .now-line {
+            font-size: 0.85rem;
+            line-height: 1.9;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+        .now-line .now-key {
+            color: rgba(var(--accent-warm), 0.45);
+            margin-right: 6px;
+            font-weight: 300;
+        }
+        .now-line .now-value { color: var(--text-strong); }
 
         .toast-overlay {
             position: fixed;
@@ -540,15 +607,9 @@
             animation: fadeIn 0.3s ease;
         }
 
-        .toast-overlay.show {
-            display: flex;
-        }
+        .toast-overlay.show { display: flex; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes scaleIn {
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
@@ -566,16 +627,9 @@
             animation: scaleIn 0.3s ease;
         }
 
-        body.light-mode .toast-box {
-            background: rgba(240, 240, 237, 0.95);
-        }
+        body.light-mode .toast-box { background: rgba(240, 240, 237, 0.95); }
 
-        .toast-box .emoji {
-            font-size: 2.8rem;
-            display: block;
-            margin-bottom: 12px;
-        }
-
+        .toast-box .emoji { font-size: 2.8rem; display: block; margin-bottom: 12px; }
         .toast-box .title {
             font-size: 1.1rem;
             color: var(--text-strong);
@@ -583,7 +637,6 @@
             font-weight: 400;
             margin-bottom: 6px;
         }
-
         .toast-box .msg {
             font-size: 0.85rem;
             color: rgba(var(--accent-warm), 0.4);
@@ -591,7 +644,6 @@
             line-height: 1.6;
             margin-bottom: 18px;
         }
-
         .toast-box .btn-close {
             background: rgba(var(--accent), 0.08);
             border: 1px solid rgba(var(--accent), 0.10);
@@ -603,7 +655,6 @@
             cursor: pointer;
             font-weight: 300;
         }
-
         .toast-box .btn-close:hover {
             background: rgba(var(--accent), 0.12);
             border-color: rgba(var(--accent), 0.15);
@@ -621,51 +672,23 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 12px;
-            }
-            .avatar {
-                width: 100px;
-                height: 100px;
-            }
-            .name {
-                font-size: 1.5rem;
-                letter-spacing: 4px;
-            }
-            .content {
-                padding: 16px;
-            }
-            .line {
-                font-size: 0.9rem;
-            }
-            .friend-list .tag {
-                font-size: 0.8rem;
-                padding: 1px 10px;
-            }
-            .diary-days {
-                font-size: 0.7rem;
-            }
-            .game-card .label {
-                font-size: 0.85rem;
-            }
-            .toast-box {
-                padding: 28px 24px 24px 24px;
-            }
-            .toast-box .emoji {
-                font-size: 2.4rem;
-            }
+            body { padding: 12px; }
+            .avatar { width: 100px; height: 100px; }
+            .name { font-size: 1.5rem; letter-spacing: 4px; }
+            .content { padding: 16px; }
+            .line { font-size: 0.9rem; }
+            .friend-list .tag { font-size: 0.8rem; padding: 1px 10px; }
+            .diary-days { font-size: 0.7rem; }
+            .game-card .label { font-size: 0.85rem; }
+            .now-line { font-size: 0.78rem; }
+            .toast-box { padding: 28px 24px 24px 24px; }
+            .toast-box .emoji { font-size: 2.4rem; }
         }
 
         @media (max-width: 400px) {
-            .name {
-                letter-spacing: 3px;
-            }
-            .game-card {
-                padding: 14px 14px;
-            }
-            .game-card .label {
-                font-size: 0.8rem;
-            }
+            .name { letter-spacing: 3px; }
+            .game-card { padding: 14px 14px; }
+            .game-card .label { font-size: 0.8rem; }
         }
 
         .footer {
@@ -678,9 +701,34 @@
             font-weight: 300;
             letter-spacing: 2px;
         }
+
+        /* ===== ARG 入口 ===== */
+        .arg-entry {
+            margin-top: 18px;
+            text-align: center;
+            color: #8b1a1a;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.15s ease;
+        }
+        .arg-entry:hover {
+            color: #c02020;
+            text-shadow: 0 0 12px rgba(180, 30, 30, 0.4);
+        }
+        .arg-entry:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body>
+
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="intro-particles" id="introParticles"></div>
 
     <button class="theme-toggle" id="themeToggle" aria-label="切换黑白模式">✦</button>
 
@@ -739,14 +787,25 @@
             <span class="diary-days" id="diaryDaysDisplay">💙 和伊索卡尔已经 <strong>0</strong> 天</span>
         </div>
 
+        <div class="now-section">
+            <div class="now-title">最近</div>
+            <div class="now-line"><span class="now-key">挚爱</span><span class="now-value">雨爱 - 杨丞琳</span></div>
+            <div class="now-line"><span class="now-key">在玩</span><span class="now-value">第五人格</span></div>
+            <div class="now-line"><span class="now-key">在看</span><span class="now-value">黑色五叶草</span></div>
+        </div>
+
         <div class="visitor-count" id="visitorDisplay">✦ 已有 0 人看过我</div>
 
-        <div class="line" style="margin-top: 14px;">我爱你们</div>
+        <div class="line" style="margin-top: 14px;">爱你哦</div>
         <div class="line">mua！</div>
     </div>
 
     <div class="footer">
         最后更新: 2026年9月17日
+    </div>
+
+    <div class="arg-entry" id="argEntry">
+        <strong>「冷涩调的秘密档案」轻触这里开始解密 →</strong>
     </div>
 
     <div class="toast-overlay" id="toastOverlay">
@@ -767,13 +826,11 @@
         }
 
         document.querySelectorAll('.avatar').forEach(img => {
-            img.onerror = function () {
-                this.style.display = 'none';
-            };
+            img.onerror = function () { this.style.display = 'none'; };
         });
 
         // ===== 天数 =====
-        const ANNIVERSARY = new Date(2022, 5, 25); // 2022-06-25（月份从 0 开始）
+        const ANNIVERSARY = new Date(2022, 5, 25);
         function updateDiaryDays() {
             const now = new Date();
             const start = new Date(ANNIVERSARY.getFullYear(), ANNIVERSARY.getMonth(), ANNIVERSARY.getDate());
@@ -781,9 +838,7 @@
             const diffDays = Math.floor((today - start) / 86400000);
             const days = diffDays >= 0 ? diffDays : 0;
             const el = document.getElementById('diaryDaysDisplay');
-            if (el) {
-                el.innerHTML = `💙 和伊索卡尔已经 <strong>${days}</strong> 天`;
-            }
+            if (el) el.innerHTML = `💙 和伊索卡尔已经 <strong>${days}</strong> 天`;
         }
         updateDiaryDays();
 
@@ -803,9 +858,7 @@
             const now = new Date();
             const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-            const elapsed = now - startOfDay;
-            const total = endOfDay - startOfDay;
-            const pct = Math.min(100, (elapsed / total) * 100);
+            const pct = Math.min(100, ((now - startOfDay) / (endOfDay - startOfDay)) * 100);
             const fill = document.getElementById('progressFill');
             const pctText = document.getElementById('progressPct');
             if (fill) fill.style.width = pct + '%';
@@ -816,40 +869,28 @@
 
         // ===== 天气 =====
         const WEATHER_ICON_MAP = {
-            '113': '☀️', '116': '🌤', '119': '⛅', '122': '☁️',
-            '143': '🌫', '176': '🌦', '179': '🌨', '182': '🌧',
-            '185': '🌧', '200': '⛈', '227': '❄️', '230': '❄️',
-            '248': '🌫', '260': '🌫', '263': '🌦', '266': '🌧',
-            '281': '🌧', '284': '🌧', '293': '🌦', '296': '🌧',
-            '299': '🌧', '302': '🌧', '305': '🌧', '308': '🌧',
-            '311': '🌧', '314': '🌧', '317': '🌧', '320': '🌨',
-            '323': '🌨', '326': '🌨', '329': '🌨', '332': '❄️',
-            '335': '❄️', '338': '❄️', '350': '🌧', '353': '🌦',
-            '356': '🌧', '359': '🌧', '362': '🌧', '365': '🌧',
-            '368': '🌨', '371': '🌨', '374': '🌧', '377': '🌧',
-            '386': '⛈', '389': '⛈', '392': '🌨', '395': '❄️'
+            '113':'☀️','116':'🌤','119':'⛅','122':'☁️','143':'🌫','176':'🌦','179':'🌨','182':'🌧',
+            '185':'🌧','200':'⛈','227':'❄️','230':'❄️','248':'🌫','260':'🌫','263':'🌦','266':'🌧',
+            '281':'🌧','284':'🌧','293':'🌦','296':'🌧','299':'🌧','302':'🌧','305':'🌧','308':'🌧',
+            '311':'🌧','314':'🌧','317':'🌧','320':'🌨','323':'🌨','326':'🌨','329':'🌨','332':'❄️',
+            '335':'❄️','338':'❄️','350':'🌧','353':'🌦','356':'🌧','359':'🌧','362':'🌧','365':'🌧',
+            '368':'🌨','371':'🌨','374':'🌧','377':'🌧','386':'⛈','389':'⛈','392':'🌨','395':'❄️'
         };
-
         function setWeatherUnavailable() {
             document.getElementById('weatherIcon').textContent = '🌤';
             document.getElementById('weatherTemp').textContent = '--°';
             document.getElementById('weatherCity').textContent = '--';
         }
-
         function getWeather() {
             fetch('https://wttr.in?format=j1&lang=zh')
-                .then(res => {
-                    if (!res.ok) throw new Error('Weather API error');
-                    return res.json();
-                })
+                .then(res => { if (!res.ok) throw new Error(); return res.json(); })
                 .then(data => {
                     const current = data?.current_condition?.[0];
-                    if (!current) throw new Error('No current condition');
+                    if (!current) throw new Error();
                     const temp = current.temp_C;
                     const code = current.weatherCode;
                     const city = data?.nearest_area?.[0]?.areaName?.[0]?.value || '--';
                     const icon = WEATHER_ICON_MAP[code] || '🌤';
-
                     document.getElementById('weatherIcon').textContent = icon;
                     document.getElementById('weatherTemp').textContent = temp + '°';
                     document.getElementById('weatherCity').textContent = city.length > 4 ? city.slice(0, 4) : city;
@@ -859,10 +900,9 @@
         getWeather();
         setInterval(getWeather, 3600000);
 
-        // ===== 黑白切换 =====
+        // ===== 主题 =====
         const toggleBtn = document.getElementById('themeToggle');
         let isLight = safeGet('theme') === 'light';
-
         function applyTheme() {
             if (isLight) {
                 document.body.classList.add('light-mode');
@@ -873,54 +913,40 @@
             }
         }
         applyTheme();
-
         toggleBtn.addEventListener('click', function () {
             isLight = !isLight;
             applyTheme();
             safeSet('theme', isLight ? 'light' : 'dark');
         });
 
-        // ===== 游戏卡片点击 =====
+        // ===== 游戏卡片 =====
         const gameCard = document.getElementById('gameCard');
         const toastOverlay = document.getElementById('toastOverlay');
         const toastCloseBtn = document.getElementById('toastCloseBtn');
-
         function showToast() {
             if (toastOverlay.classList.contains('show')) return;
             toastOverlay.classList.add('show');
         }
-        function hideToast() {
-            toastOverlay.classList.remove('show');
-        }
-
+        function hideToast() { toastOverlay.classList.remove('show'); }
         toastCloseBtn.addEventListener('click', hideToast);
         toastOverlay.addEventListener('click', function (e) {
             if (e.target === toastOverlay) hideToast();
         });
-
         gameCard.addEventListener('click', function () {
             const appStoreUrl = 'https://apps.apple.com/cn/app/%E7%AC%AC%E4%BA%94%E4%BA%BA%E6%A0%BC/id1232556921';
             const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.netease.idv.googleplay';
             const iosScheme = 'identityv://';
             const androidIntent = 'intent://#Intent;package=com.netease.idv.googleplay;scheme=identityv;end';
-
             const ua = navigator.userAgent;
             const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
             const isAndroid = /Android/.test(ua);
-
-            if (!isIOS && !isAndroid) {
-                showToast();
-                return;
-            }
-
+            if (!isIOS && !isAndroid) { showToast(); return; }
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = isIOS ? iosScheme : androidIntent;
             document.body.appendChild(iframe);
-
             let timeoutId = null;
             let isAppOpened = false;
-
             function onVisibilityChange() {
                 if (document.hidden) {
                     isAppOpened = true;
@@ -930,22 +956,76 @@
                 }
             }
             document.addEventListener('visibilitychange', onVisibilityChange);
-
             timeoutId = setTimeout(function () {
                 document.removeEventListener('visibilitychange', onVisibilityChange);
                 if (iframe.parentNode) document.body.removeChild(iframe);
-
                 if (!isAppOpened) {
                     showToast();
                     setTimeout(function () {
-                        if (isIOS) {
-                            window.location.href = appStoreUrl;
-                        } else if (isAndroid) {
-                            window.location.href = googlePlayUrl;
-                        }
+                        if (isIOS) window.location.href = appStoreUrl;
+                        else if (isAndroid) window.location.href = googlePlayUrl;
                     }, 2000);
                 }
             }, 2500);
+        });
+
+        // ===== 16. 自定义光标 =====
+        (function initCursor() {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+            const dot = document.getElementById('cursorDot');
+            if (!dot) return;
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let dotX = mouseX;
+            let dotY = mouseY;
+            document.addEventListener('mousemove', function (e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            function animate() {
+                dotX += (mouseX - dotX) * 0.2;
+                dotY += (mouseY - dotY) * 0.2;
+                dot.style.left = dotX + 'px';
+                dot.style.top = dotY + 'px';
+                requestAnimationFrame(animate);
+            }
+            animate();
+            const hoverTargets = document.querySelectorAll('a, button, .game-card, .theme-toggle, .arg-entry');
+            hoverTargets.forEach(el => {
+                el.addEventListener('mouseenter', () => dot.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => dot.classList.remove('hovering'));
+            });
+            document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; });
+            document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; });
+        })();
+
+        // ===== 19. 进入特效 =====
+        (function initIntroParticles() {
+            const container = document.getElementById('introParticles');
+            if (!container) return;
+            const count = 22;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.className = 'intro-particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = '-10px';
+                const duration = 3 + Math.random() * 3;
+                const delay = Math.random() * 1.5;
+                const drift = (Math.random() - 0.5) * 200;
+                p.style.animationDuration = duration + 's';
+                p.style.animationDelay = delay + 's';
+                p.style.setProperty('--drift', drift + 'px');
+                const size = 2 + Math.random() * 3;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                container.appendChild(p);
+            }
+            setTimeout(() => { container.innerHTML = ''; }, 9000);
+        })();
+
+        // ===== ARG 入口 =====
+        document.getElementById('argEntry').addEventListener('click', function () {
+            window.location.href = 'secret.html';
         });
     </script>
 </body>
